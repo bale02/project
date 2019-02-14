@@ -21,7 +21,11 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="net.hb.project" />
+	<beans:bean id="multipartResolver"
+              class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+	
+	
+	<context:component-scan base-package="net.hb.*" />
 	
 	
 	
