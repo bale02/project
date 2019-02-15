@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="net.project.board.boardMapper">
+	
+	<insert id="create">
+		insert into board(
+			board_No,title,content,writer,regdate,viewcnt
+		) values(
+			#{boardNo},#{title},#{content},#{writer},sysdate,#{viewCnt}
+		)
+		
+	</insert>
+
+	<select id="read" resultMap="boardVO">
+		select * from board where board_no = #{boardNo}
+	
+	</select>
+	
+	<update id="update">
+		update board set title =#{title} , content=#{content}
+			where board_no=#{boardNo}
+	</update>
+	
+	<delete id="delete">
+		delete from board where board_no=#{boardNo}
+	</delete>
+	
+	<select id="listAll">
+		<![CDATA[
+			select * from board where board_no >0 order by board_no desc
+		]]>
+	</select>
+	
+	<resultMap type="boardVO" id="boardResultMap">
+		<id property="boardNo" column="board_no"/>
+		<result property="title" column="title"/>
+		<result property="content" column="content"/>
+		<result property="writer" column="writer"/>
+		<result property="regDate" column="regdate"/>
+		<result property="viewCnt" column="viewcnt"/>		
+
+	</resultMap>
+</mapper>	

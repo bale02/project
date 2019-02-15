@@ -1,4 +1,4 @@
-package net.hb.project;
+package net.board.domain;
 
 import java.text.DateFormat;
 import java.util.Date;
