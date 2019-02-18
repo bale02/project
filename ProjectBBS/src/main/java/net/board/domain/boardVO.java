@@ -10,10 +10,10 @@ public class boardVO {
 	private Date regdate;
 	private int viewcnt;
 	
-	public int getArticle_no() {
+	public int getboard_no() {
 		return board_no;
 	}
-	public void setArticle_no(int article_no) {
+	public void setboard_no(int board_no) {
 		this.board_no = board_no;
 	}
 	public String getTitle() {
