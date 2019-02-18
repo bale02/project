@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+/WEB-INF/views/<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!-- jQuery 3 -->
 <script src="resources/bower_components/jquery/dist/jquery.min.js"></script>

@@ -66,8 +66,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="${path}/board/write.do"><i class="fa fa-pencil"></i> 게시글 쓰기</a></li>
-                    <li><a href="${path}/board/list.do"><i class="fa fa-list"></i> 게시글 목록</a></li>
+                    <li><a href="write.do"><i class="fa fa-pencil"></i> 게시글 쓰기</a></li>
+                    <li><a href="list.do"><i class="fa fa-list"></i> 게시글 목록</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -77,8 +77,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="${path}/board/paging/write"><i class="fa fa-pencil"></i> 게시글 쓰기</a></li>
-                    <li><a href="${path}/board/paging/list"><i class="fa fa-list"></i> 게시글 목록</a></li>
+                    <li><a href="${path}/paging/write"><i class="fa fa-pencil"></i> 게시글 쓰기</a></li>
+                    <li><a href="${path}/paging/list"><i class="fa fa-list"></i> 게시글 목록</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -88,8 +88,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="${path}/board/paging/search/write"><i class="fa fa-pencil"></i> 게시글 쓰기</a></li>
-                    <li><a href="${path}/board/paging/search/list"><i class="fa fa-list"></i> 게시글 목록</a></li>
+                    <li><a href="${path}/paging/search/write"><i class="fa fa-pencil"></i> 게시글 쓰기</a></li>
+                    <li><a href="${path}/paging/search/list"><i class="fa fa-list"></i> 게시글 목록</a></li>
                 </ul>
             </li>
 

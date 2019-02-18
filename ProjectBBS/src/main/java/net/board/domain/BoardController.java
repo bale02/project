@@ -15,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import net.board.service.boardService;
 
 @Controller
-@RequestMapping("/board")
 public class BoardController {
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
@@ -31,7 +30,7 @@ public class BoardController {
 	public String writeGET() {
 		logger.info("write GET..");
 		
-		return "/board/write";
+		return "board/write";
 	}
 	
 	// 게시물 등록
@@ -42,7 +41,7 @@ public class BoardController {
 		logger.info(boardVO.toString());
 		boardService.create(boardVO);
 		redirectAttributes.addFlashAttribute("msg", "regSuccess");
-		return "redirect:/board/list.do";
+		return "redirect:/list.do";
 	}
 	
 	// 리스트 조회
@@ -51,7 +50,7 @@ public class BoardController {
 	public String list(Model model) throws Exception {
 		logger.info("list..");
 		
-		return "/board/list";
+		return "board/list";
 	}
 	
 	//게시글 확인
@@ -59,7 +58,7 @@ public class BoardController {
 	public String read(@RequestParam("boradNo") int boardNo,Model model) throws Exception{
 		logger.info("read..");
 		
-		return "/borad/read";
+		return "borad/read";
 	}
 	
 	// 게시글 수정 페이지 이동
@@ -67,7 +66,7 @@ public class BoardController {
 	public String modifyGET(@RequestParam("boardNo") int boardNo ,Model model) throws Exception{
 		logger.info("modify Get..");
 		
-		return "/board/modify";
+		return "board/modify";
 	}
 	
 	//게시글 수정
@@ -78,7 +77,7 @@ public class BoardController {
 		boardService.update(boardVO);
 		
 		redirectAttributes.addFlashAttribute("msg", "mod Succes");
-		return "redirect:/board/read.do?boradNo="+boardVO.getboardNo();
+		return "redirect:/read.do?boradNo="+boardVO.getboardNo();
 		
 	}
 	
@@ -90,7 +89,7 @@ public class BoardController {
 		boardService.delete(boardNo);
 		
 		redirectAttributes.addFlashAttribute("msg","remove Succes");
-		return "redirect:/board/list.do";
+		return "redirect:/list.do";
 	}
 	
 }
