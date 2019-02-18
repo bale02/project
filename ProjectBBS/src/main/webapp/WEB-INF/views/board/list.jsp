@@ -4,7 +4,6 @@
 <jsp:include page="../include/head.jsp"/>
 
 <body class="hold-transition skin-blue sidebar-mini layout-boxed">
-<c:set var="path" value="${pageContext.request.contextPath}"/>
 <script type="text/javascript">
 	var result = "${msg}";
 	if(result=="regSuccess"){
@@ -12,6 +11,16 @@
 	}else if(result=="delSuccess"){
 		alert("게시글 삭제가 완료되었습니다.");
 	}
+    $(document).ready(function () {
+        var formObj = $("form[role='form']");
+        console.log(formObj);
+        $(".writeBtn").on("click", function () {
+            formObj.attr("action", "write.do");
+            formObj.attr("method", "get");
+            formObj.submit();
+        });
+    });
+</script>
 </script>
 <div class="wrapper">
 
@@ -26,7 +35,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                글쓰기페이지
+                게시판
             </h1>
             <ol class="breadcrumb">
                 <li><a href="${path}/"><i class="fa fa-dashboard"></i> home</a></li>
@@ -63,7 +72,7 @@
 				</div>
 				<div class="box-footer">
 					<div class="pull-right">
-						<button class="btn btn-success btn-flat" id="writeBtn">
+						<button class="btn btn-success btn-flat" id="writeBtn" >
 							<i class="fa fa-pencil"></i>글쓰기
 						</button>
 					</div>
