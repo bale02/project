@@ -3,20 +3,19 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
-<mapper namespace="net.project.board.boardMapper">
+<mapper namespace="net.mappers.board.boardMapper">
 	
 	<insert id="create">
 		insert into board(
 			board_No,title,content,writer,regdate,viewcnt
 		) values(
-			#{boardNo},#{title},#{content},#{writer},sysdate,#{viewCnt}
+			1,#{title},#{content},#{writer},sysdate,0
 		)
 		
 	</insert>
 
-	<select id="read" resultMap="boardVO">
-		select * from board where board_no = #{boardNo}
-	
+	<select id="read" resultMap="boardResultMap">
+		select * from board where board_No = #{boardNo}
 	</select>
 	
 	<update id="update">
@@ -28,7 +27,7 @@
 		delete from board where board_no=#{boardNo}
 	</delete>
 	
-	<select id="listAll">
+	<select id="listAll" resultType="boardVO"	>
 		<![CDATA[
 			select * from board where board_no >0 order by board_no desc
 		]]>
@@ -39,8 +38,8 @@
 		<result property="title" column="title"/>
 		<result property="content" column="content"/>
 		<result property="writer" column="writer"/>
-		<result property="regDate" column="regdate"/>
-		<result property="viewCnt" column="viewcnt"/>		
+		<result property="regdate" column="regdate"/>
+		<result property="viewcnt" column="viewcnt"/>		
 
 	</resultMap>
 </mapper>	

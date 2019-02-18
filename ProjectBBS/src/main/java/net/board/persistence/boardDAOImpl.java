@@ -5,14 +5,16 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import net.board.domain.boardVO;
 
 @Repository
 public class boardDAOImpl implements boardDAO {
-	private static final String NAMESPACE = "net.project.board.boardMapper";
+	private static final String NAMESPACE = "net.mappers.board.boardMapper";
 	
+	@Autowired
 	private final SqlSession sqlSession;
 	
 	@Inject

@@ -26,7 +26,7 @@
               class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 	
 	
-	<context:component-scan base-package="net.hb.*" />
+	<context:component-scan base-package="net.board.*" />
 	
 	
 	

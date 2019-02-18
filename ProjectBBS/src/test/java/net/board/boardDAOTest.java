@@ -23,9 +23,9 @@ public class boardDAOTest {
 	@Test
 	public void testCreate() throws Exception{
 		boardVO board = new boardVO();
-		board.setTitle("»õ·Î¿î ±Û ÀÛ¼º Å×½ºÆ® Á¦¸ñ");
-		board.setContent("»õ·Î¿î ±Û ÀÛ¼º Å×½ºÆ® ³»¿ë");
-		board.setWriter("»õ·Î¿î ±Û ÀÛ¼ºÀÚ");
+		board.setTitle("ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ ï¿½Û¼ï¿½ ï¿½×½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½");
+		board.setContent("ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ ï¿½Û¼ï¿½ ï¿½×½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½");
+		board.setWriter("ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½");
 		boardDAO.create(board);
 	}
 	
@@ -37,9 +37,9 @@ public class boardDAOTest {
 	@Test
 	public void testUpdate() throws Exception{
 		boardVO board = new boardVO();
-		board.setboard_no(1);
-		board.setTitle("±Û ¼öÁ¤ Å×½ºÆ® Á¦¸ñ");
-		board.setContent("±Û ¼öÁ¤ Å×½ºÆ® ³»¿ë");
+		board.setboardNo(1);
+		board.setTitle("ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½");
+		board.setContent("ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½");
 		boardDAO.update(board);
 	}
 	
