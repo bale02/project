@@ -8,11 +8,11 @@ public class MainController {
 	
 	@RequestMapping("/main.do")
 	public String dashBaord(){
-		return "main/main";
+		return "/main/main";
 	}
 	
 	@RequestMapping("/register.do")
 	public String register() {
-		return "main/register";
+		return "/main/register";
 	}
 }

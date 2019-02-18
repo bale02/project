@@ -27,7 +27,7 @@
 		delete from board where board_no=#{boardNo}
 	</delete>
 	
-	<select id="listAll" resultType="boardVO"	>
+	<select id="listAll" resultType="boardVO">
 		<![CDATA[
 			select * from board where board_no >0 order by board_no desc
 		]]>

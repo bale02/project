@@ -1,84 +1,49 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<%@include file="../include/meta.jsp" %>
-<body class="hold-transition sidebar-mini">
-<!-- Site wrapper -->
+
+<%@ include file="../include/head.jsp"%>
+
+<body class="hold-transition skin-blue sidebar-mini layout-boxed">
+
 <div class="wrapper">
-  <!-- Navbar -->
-  <%@include file="../include/navbar.jsp" %>
-  <!-- Main pageHeader Container -->
-  <%@include file="../include/pageHeader.jsp" %>
-  <!-- Content Wrapper. Contains page content -->
-   <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-              Man must explore, and this is exploration at its greatest
-            </h2>
-            <h3 class="post-subtitle">
-              Problems look mighty small from 150 miles up
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on September 24, 2019</p>
-        </div>
-        <hr>
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-              I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
-            </h2>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on September 18, 2019</p>
-        </div>
-        <hr>
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-              Science has not yet mastered prophecy
-            </h2>
-            <h3 class="post-subtitle">
-              We predict too much for the next year and yet far too little for the next ten.
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on August 24, 2019</p>
-        </div>
-        <hr>
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-              Failure is not an option
-            </h2>
-            <h3 class="post-subtitle">
-              Many say exploration is part of our destiny, but it’s actually our duty to future generations.
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on July 8, 2019</p>
-        </div>
-        <hr>
-        <!-- Pager -->
-        <div class="clearfix">
-          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-        </div>
-      </div>
+
+    <!-- Main Header -->
+    <%@ include file="../include/main_header.jsp"%>
+
+    <!-- Left side column. contains the logo and sidebar -->
+    <%@ include file="../include/left_column.jsp"%>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                메인페이지
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="${path}/"><i class="fa fa-dashboard"></i> home</a></li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content container-fluid">
+
+            <p>메인페이지입니다....</p>
+
+        </section>
+        <!-- /.content -->
     </div>
-  </div>
-  
+    <!-- /.content-wrapper -->
+
+    <!-- Main Footer -->
+    <%@ include file="../include/main_footer.jsp"%>
+
 </div>
 <!-- ./wrapper -->
-<%@include file="../include/footer.jsp" %>
-<!-- jQuery -->
-<%@include file="../include/script.jsp" %>
+
+<%@ include file="../include/plugin_js.jsp"%>
+
 </body>
+
 </html>
