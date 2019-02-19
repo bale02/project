@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import net.board.domain.boardVO;
 import net.board.persistence.boardDAO;
+import net.commons.paging.Criteria;
 
 @Service
 public class boardServiceImpl implements boardService {
@@ -49,5 +50,11 @@ public class boardServiceImpl implements boardService {
 	public List<boardVO> listAll() throws Exception {
 		// TODO Auto-generated method stub
 		return boardDAO.listAll();
+	}
+
+	@Override
+	public List<boardVO> listCriteria(Criteria criteria) throws Exception {
+		
+		return boardDAO.listCriteria(criteria);
 	}
 }

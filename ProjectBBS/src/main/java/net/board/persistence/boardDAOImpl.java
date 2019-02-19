@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import net.board.domain.boardVO;
+import net.commons.paging.Criteria;
 
 @Repository
 public class boardDAOImpl implements boardDAO {
@@ -45,6 +46,21 @@ public class boardDAOImpl implements boardDAO {
 	@Override
 	public List<boardVO> listAll() throws Exception{
 		return sqlSession.selectList(NAMESPACE + ".listAll");
+	}
+
+	@Override
+	public List<boardVO> listPaging(int page) throws Exception {
+		if(page<=0) {
+			page =1;
+		}
+		page = (page-1) * 10;
+		
+		return sqlSession.selectList(NAMESPACE+".listPaging",page);
+	}
+
+	@Override
+	public List<boardVO> listCriteria(Criteria criteria) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".listCriteria",criteria);				
 	}
 	
 }

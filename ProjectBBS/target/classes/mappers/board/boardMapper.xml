@@ -28,12 +28,22 @@
 	</delete>
 	
 	<select id="listAll" resultType="boardVO">
+		select * from board
+    </select>
+	
+	<select id="listPaging" resultMap="boardResultMap">
 		<![CDATA[
-      	select * from ( select B.*, rownum r from board b order by board_no desc)
-      		where r>0 and r<=10
+      	select * from ( select b.*, rownum r from board b order by board_no desc)
+      		where r between #{page} and 10 
           	]]>
     </select>
     
+    <select id="listCriteria" resultMap="boardResultMap">
+    	 	<![CDATA[
+    	select * from ( select b.*, rownum r from board b order by board_no desc)
+      		where r between #{pageStart} and #{perPageNum} 
+          	]]>
+    </select>
     
     <select id="count" resultType="int">
     	select count(*) from board
