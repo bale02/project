@@ -22,29 +22,13 @@ public class boardDAOTest {
 	
 	@Test
 	public void testCreate() throws Exception{
-		boardVO board = new boardVO();
-		board.setTitle("���ο� �� �ۼ� �׽�Ʈ ����");
-		board.setContent("���ο� �� �ۼ� �׽�Ʈ ����");
-		board.setWriter("���ο� �� �ۼ���");
-		boardDAO.create(board);
+		for(int i=0;i<1000;i++) {
+			boardVO board = new boardVO();
+			board.setTitle(i + "번째 글 입니다.");
+			board.setContent(i + "번째 글 내용입니다.");
+			board.setWriter("user0"+(i%10));
+			boardDAO.create(board);
+		}
 	}
 	
-	@Test
-	public void testRead() throws Exception{
-		LOGGER.info(boardDAO.read(1).toString());
-	}
-	
-	@Test
-	public void testUpdate() throws Exception{
-		boardVO board = new boardVO();
-		board.setboardNo(1);
-		board.setTitle("�� ���� �׽�Ʈ ����");
-		board.setContent("�� ���� �׽�Ʈ ����");
-		boardDAO.update(board);
-	}
-	
-	@Test
-	public void testDelete() throws Exception{
-		boardDAO.delete(1);
-	}
 }

@@ -54,7 +54,3 @@
 		<constructor-arg ref="factoryBean" />
 	</bean>
 </beans>
-
-
-
-

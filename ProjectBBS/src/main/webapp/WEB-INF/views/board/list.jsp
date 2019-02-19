@@ -1,7 +1,8 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
+
 <html>
-<jsp:include page="../include/head.jsp"/>
+<%@ include file="../include/head.jsp"%>
 
 <body class="hold-transition skin-blue sidebar-mini layout-boxed">
 <script type="text/javascript">
@@ -11,30 +12,21 @@
 	}else if(result=="delSuccess"){
 		alert("게시글 삭제가 완료되었습니다.");
 	}
-    $(document).ready(function () {
-        var formObj = $("form[role='form']");
-        console.log(formObj);
-        $(".writeBtn").on("click", function () {
-            formObj.attr("action", "write.do");
-            formObj.attr("method", "get");
-            formObj.submit();
-        });
-    });
 </script>
 </script>
 <div class="wrapper">
 
     <!-- Main Header -->
-    <jsp:include page="../include/main_header.jsp"/>
+    <%@ include file="../include/main_header.jsp"%>
 
     <!-- Left side column. contains the logo and sidebar -->
-    <jsp:include page="../include/left_column.jsp"/>
+    <%@ include file="../include/left_column.jsp"%>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
+            <h1> 
                 게시판
             </h1>
             <ol class="breadcrumb">
@@ -58,11 +50,11 @@
 						<th style="width: 150px">작성시간</th>
 						<th style="width: 60px">조회</th>
 					</tr>
-					<c:forEach items="${boards} var="board">
+					<c:forEach var="board" items="${boards}">
 						<tr>
-							<td>${board.boardNo}</td>
-							<td><a href=${path}/read?borad?boardNo=${board.boardNo}">${board.title}</a>
-							<td>${borad.writer}</td>
+							<td>${board.board_no}</td>
+							<td><a href="read.do?board_no=${board.board_no}">${board.title}</a></td>
+							<td>${board.writer}</td>
 							<td><fmt:formatDate value="${board.regdate}" pattern="yyyy-MM-dd a HH:mm"/></td>
 							<td><span class="badge bg-red">${board.viewcnt}</span></td>
 						</tr>
@@ -72,7 +64,7 @@
 				</div>
 				<div class="box-footer">
 					<div class="pull-right">
-						<button class="btn btn-success btn-flat" id="writeBtn" >
+						<button class="btn btn-success btn-flat" id="writeBtn" onclick="location.href='write.do'" >
 							<i class="fa fa-pencil"></i>글쓰기
 						</button>
 					</div>
@@ -84,12 +76,12 @@
     <!-- /.content-wrapper -->
 
     <!-- Main Footer -->
-    <jsp:include page="../include/main_footer.jsp"/>
+    <%@ include file="../include/main_footer.jsp"%>
 
 </div>
 <!-- ./wrapper -->
 
-<jsp:include page="../include/plugin_js.jsp"/>
+<%@ include file="../include/plugin_js.jsp"%>
 
 </body>
 
