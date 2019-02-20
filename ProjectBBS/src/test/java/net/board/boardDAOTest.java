@@ -26,8 +26,8 @@ public class boardDAOTest {
 	@Test
 	public void testListCriteria() throws Exception{
 		Criteria criteria = new Criteria();
-		criteria.setPage(3);
-		criteria.setPerPageNum(10);
+		criteria.setStart(3);
+		criteria.setEnd(10);
 		
 		List<boardVO> list = boardDAO.listCriteria(criteria);
 		

@@ -62,5 +62,27 @@ public class boardDAOImpl implements boardDAO {
 	public List<boardVO> listCriteria(Criteria criteria) throws Exception {
 		return sqlSession.selectList(NAMESPACE+".listCriteria",criteria);				
 	}
+
+	@Override
+	public int count(String skey,String sval) throws Exception {
+		Criteria criteria = new Criteria();
+		
+		criteria.setSkey(skey);
+		criteria.setSval(sval);	
+		
+		return sqlSession.selectOne(NAMESPACE+".countOne",criteria);
+	}
+
+	@Override
+	public int count() throws Exception {
+		
+		return sqlSession.selectOne(NAMESPACE+".count");
+	}
+
+	@Override
+	public List<boardVO> listSearch(Criteria criteria) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".select",criteria);			
+	}
+	
 	
 }

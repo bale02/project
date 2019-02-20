@@ -38,16 +38,36 @@
           	]]>
     </select>
     
-    <select id="listCriteria" resultMap="boardResultMap">
+    <select id="select" resultMap="boardResultMap">
     	 	<![CDATA[
     	select * from ( select b.*, rownum r from board b order by board_no desc)
-      		where r between #{pageStart} and #{perPageNum} 
+      		where r between #{start} and #{end} 
           	]]>
     </select>
+    
+    <select id="listCriteria" resultType="boardVO">
+      select * from ( select rownum as rn, b.* from ( select * from board
+      <if test="skey != null">
+         <if test="skey == 'writer'"> where upper(writer) like '%' || upper(#{sval}) || '%' </if>
+         <if test="skey == 'title'"> where upper(title) like '%' || upper(#{sval}) || '%' </if>
+         <if test="skey == 'content'"> where upper(content) like '%' || upper(#{sval}) || '%' </if>
+         <if test="skey == 'all'"> where upper(writer) || upper(title) || upper(content) like '%' || upper(#{sval}) || '%'</if>
+      </if>
+      order by board_no desc ) b ) where rn between #{start} and #{end} 
+   </select>
     
     <select id="count" resultType="int">
     	select count(*) from board
     </select>
+	
+	<select id="countOne" resultType="int">
+ 	   select  count(*)  from board <if test="skey != null">
+         <if test="skey == 'writer'"> where upper(writer) like '%' || upper(#{sval}) || '%' </if>
+         <if test="skey == 'title'"> where upper(title) like '%' || upper(#{sval}) || '%' </if>
+         <if test="skey == 'content'"> where upper(content) like '%' || upper(#{sval}) || '%' </if>
+         <if test="skey == 'all'"> where upper(writer) || upper(title) || upper(content) like '%' || upper(#{sval}) || '%'</if>
+      </if>
+ 	</select>
 	
 	<resultMap type="boardVO" id="boardResultMap">
 		<id property="board_no" column="board_no"/>

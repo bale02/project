@@ -1,6 +1,9 @@
 package net.board.domain;
 
+import java.util.List;
+
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import net.board.service.boardService;
@@ -94,10 +98,77 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/listCriteria.do",method=RequestMethod.GET)
-	public String listCriteria(Model model, Criteria criteria)throws Exception{
+	public ModelAndView listCriteria(HttpServletRequest request)throws Exception{
 		logger.info("listCriteria..");
-		model.addAttribute("boards",boardService.listCriteria(criteria));
-		return "/board/list_criteria";
+		
+		ModelAndView mav = new ModelAndView();
+		
+		int total;
+		String pnum="";
+		int startpage=1,endpage=10;
+		int pageNUM=1,start=1,end=10;
+		int pagecount=1,temp=0;
+		int Stotal;
+		String skey ="", sval="", returnpage="";
+		
+		pnum = request.getParameter("page");
+		skey = request.getParameter("keyfield");
+		sval = request.getParameter("keyword");
+		
+		if(sval == null || sval =="") {
+			skey =""; sval ="";
+		}
+		
+		returnpage ="&keyfield="+skey+"&keyword="+sval;
+		
+		if(pnum==null||pnum=="") {
+			pageNUM=1;
+		}else {
+			pageNUM=Integer.parseInt(pnum);
+		}
+		
+		start = (pageNUM-1)*10+1;
+		end = (pageNUM) * 10;
+		
+		Stotal=boardService.count(skey, sval);
+		
+		total=boardService.count();
+		
+		if(total%10==0) {
+			pagecount = Stotal/10;
+		}else {
+			pagecount = (Stotal/10)+1;
+		}
+		
+		temp=(pageNUM-1)%10;
+		startpage = pageNUM-temp;
+		endpage = startpage +9;
+		
+		if(endpage>pagecount) {
+			endpage = pagecount;
+		}
+		
+		Criteria criteria = new Criteria();
+		
+		criteria.setSval(sval);
+		criteria.setSkey(skey);
+		criteria.setEnd(end);
+		criteria.setStart(start);
+		
+		List<boardVO> list = boardService.listCriteria(criteria);
+		mav.addObject("boards",list);
+		mav.addObject("naver",list);
+		mav.addObject("total",total);
+		mav.addObject("Stotal",Stotal);
+		mav.addObject("startpage",startpage);
+		mav.addObject("endpage",endpage);
+		mav.addObject("pagecount",pagecount);
+		mav.addObject("pageNUM",pageNUM);
+		mav.addObject("sval",sval);
+		mav.addObject("returnpage",returnpage);
+		mav.setViewName("/board/list_criteria");
+		
+		return mav;
 	}
 	
 }

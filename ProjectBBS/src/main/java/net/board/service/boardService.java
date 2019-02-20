@@ -17,4 +17,10 @@ public interface boardService {
 	List<boardVO> listAll() throws Exception;
 	
 	List<boardVO> listCriteria(Criteria criteria) throws Exception;
+	
+	int count(String skey,String sval) throws Exception;
+	
+	int count() throws Exception;
+	
+	List<boardVO> listSearch(Criteria criteria) throws Exception;
 }

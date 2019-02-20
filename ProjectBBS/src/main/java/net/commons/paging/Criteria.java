@@ -1,45 +1,59 @@
 package net.commons.paging;
 
 public class Criteria {
+	private int start;
+	private int end;
 	private int page;
-	private int perPageNum;
-
+	private String skey,sval;
+	
+	
 	public Criteria() {
+		this.start=1;
+		this.end=10;
 		this.page=1;
-		this.perPageNum=10;
 	}
-	
-	
+
+	public int getStart() {
+		return start;
+	}
+
+	public void setStart(int start) {
+		this.start = start;
+	}
+
+	public int getEnd() {
+		return end;
+	}
+
+	public void setEnd(int end) {
+		this.end = end;
+	}
+
 	public int getPage() {
 		return page;
 	}
 
 	public void setPage(int page) {
-		if(page <=0) {
-			page =1;
-			return;
-		}
-		
 		this.page = page;
 	}
 
-	public int getPerPageNum() {
-		return perPageNum;
+	public String getSkey() {
+		return skey;
 	}
 
-	public void setPerPageNum(int perPageNum) {
-		if(perPageNum<=0 || perPageNum >100) {
-			this.perPageNum=10;
-			return;
-		}
-		
-		this.perPageNum = perPageNum;
+	public void setSkey(String skey) {
+		this.skey = skey;
+	}
+
+	public String getSval() {
+		return sval;
+	}
+
+	public void setSval(String sval) {
+		this.sval = sval;
 	}
 	
-	public int getPageStart() {
-		return (this.page-1) * perPageNum;
-	}
-
+	
 	
 	
 	

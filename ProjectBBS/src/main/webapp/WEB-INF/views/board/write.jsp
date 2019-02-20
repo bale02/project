@@ -50,7 +50,7 @@
 							</div>
 						</div>
 						<div class="box-footer">
-							<button type="button" class="btn btn-primary" onclick="location.href='list.do'"><i class="fa fa-list"> 목록</i></button>
+							<button type="button" class="btn btn-primary" onclick="location.href='listCriteria.do'"><i class="fa fa-list"> 목록</i></button>
 							<div class="pull-right">
 								<button type="submit" class="btn btn-success"><i class="fa fa-save"> 저장</i></button>
 								<button type="reset" class="btn btn-warning"><i class="fa fa-reply"> 초기화</i></button>

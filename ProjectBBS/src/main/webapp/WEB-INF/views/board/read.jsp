@@ -34,7 +34,7 @@
 				<div class="box box-primary">
 					<h3 class="box-title">글 제목 : ${board.title}</h3>
 				</div>
-				<div class="box-body" style="height: 700px">
+				<div class="box-body" style="height: 600px">
 					${board.content}
 				</div>
 				<div class="box-footer">
@@ -82,7 +82,7 @@
 			formObj.submit();
 		});
 		$(".listBtn").on("click",function(){
-			self.location="list.do";
+			self.location="listCriteria.do";
 		});
 		$(".delBtn").on("click",function(){
 			formObj.attr("action","delete.do");

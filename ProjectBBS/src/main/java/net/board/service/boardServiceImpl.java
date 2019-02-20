@@ -57,4 +57,22 @@ public class boardServiceImpl implements boardService {
 		
 		return boardDAO.listCriteria(criteria);
 	}
+
+	@Override
+	public int count(String skey,String sval) throws Exception {
+		
+		return boardDAO.count(skey,sval);
+	}
+
+	@Override
+	public int count() throws Exception {
+		
+		return boardDAO.count();
+	}
+
+	@Override
+	public List<boardVO> listSearch(Criteria criteria) throws Exception {
+		// TODO Auto-generated method stub
+		return boardDAO.listSearch(criteria);
+	}
 }

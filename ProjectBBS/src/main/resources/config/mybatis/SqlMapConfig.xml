@@ -5,9 +5,11 @@
 		
 	<typeAliases>
 	   <typeAlias alias="boardVO" type="net.board.domain.boardVO"/>
+	   <typeAlias alias="replyVO" type="net.reply.domain.replyVO"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/board/boardMapper.xml"/>
+		<mapper resource="mappers/reply/replyMapper.xml"/>
 	</mappers>
 </configuration>

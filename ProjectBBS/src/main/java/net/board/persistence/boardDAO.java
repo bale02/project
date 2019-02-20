@@ -19,4 +19,10 @@ public interface boardDAO {
 	List<boardVO> listPaging(int page) throws Exception;
 	
 	List<boardVO> listCriteria(Criteria criteria) throws Exception;
+	
+	int count(String skey,String sval) throws Exception;
+	
+	int count() throws Exception;
+	
+	List<boardVO> listSearch(Criteria criteria) throws Exception;
 }

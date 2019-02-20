@@ -67,7 +67,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="write.do"><i class="fa fa-pencil"></i> 게시글 쓰기</a></li>
-                    <li><a href="list.do"><i class="fa fa-list"></i> 게시글 목록</a></li>
+                    <li><a href="listCriteria.do"><i class="fa fa-list"></i> 게시글 목록</a></li>
                 </ul>
             </li>
             <li class="treeview">

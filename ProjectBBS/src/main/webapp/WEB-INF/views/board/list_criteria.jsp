@@ -13,7 +13,6 @@
 		alert("게시글 삭제가 완료되었습니다.");
 	}
 </script>
-</script>
 <div class="wrapper">
 
     <!-- Main Header -->
@@ -40,7 +39,7 @@
 				<div class="box box-primary">
 					<h3 class="box-title">게시글 목록</h3>
 				</div>
-				<div>
+				<div class="box box-body">
 					<table class="table table-bordered">
 					<tbody>
 					<tr>
@@ -63,6 +62,45 @@
 					</table>
 				</div>
 				<div class="box-footer">
+					<div class="text-center">
+						<ul class="pagination">
+							<c:if test="${startpage>10}">
+								<li><a href="listCriteria.do?page=${startpage-10}${returnpage}">이전</a></li>
+							</c:if>
+							<c:forEach var="i" begin="${startpage}" end="${endpage}">
+								<li <c:out value="${pageNUM == i ? 'class=active' : ''}"/>>
+									<a href="listCriteria.do?page=${i}${returnpage}">${i}</a>
+								</li>
+							</c:forEach>
+							<c:if test="${endpage<pagecount}">
+								<li><a href="listCriteria.do?page=${startpage+10}${returnpage}">다음</a></li>
+							</c:if>
+						</ul>
+					</div>
+				</div>
+				<div class="box-footer">
+					<div class="form-group col-sm-2">
+						<select class="form-control" name="keyfield" id="keyfield">
+							<option value="all" selected>전체검색</option>
+						<option value="writer"
+							<c:if test="${skey == 'writer'}">selected</c:if>>이름조회</option>
+						<option value="title"
+							<c:if test="${skey == 'title' }">selected</c:if>>제목검색</option>
+						<option value="content"
+							<c:if test="${skey == 'content' }">selected</c:if>>내용검색</option>
+						</select>
+					</div>
+					<div class="form-group col-sm-10">
+						<div class="input-group">
+							<input type="text" class="form-control" name="keyword" 
+							id="keyword" value="${sval}" placeholder="검색">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-primary btn-flat" id="searchBtn" >
+									<i class="fa fa-search"></i> 검색
+								</button>
+							</span>
+						</div>
+					</div>
 					<div class="pull-right">
 						<button class="btn btn-success btn-flat" id="writeBtn" onclick="location.href='write.do'" >
 							<i class="fa fa-pencil"></i>글쓰기
@@ -82,6 +120,26 @@
 <!-- ./wrapper -->
 
 <%@ include file="../include/plugin_js.jsp"%>
+
+<script type="text/javascript">
+	$(function(){
+		setSearchTypeSelect();
+		function setSearchTypeSelect(){
+			var $keyfield = $('keyfield');
+			var $keyword = $('keyword');
+			
+		$('#searchBtn').on('click',function(){
+			var keyfieldVal = $keyfield.val();
+			var keywordVal = $keyword.val();
+			self.location.href="listCriteria.do?page=1&" +
+					"keyfield=" +$('#keyfield').val() + "&keyword=" + $('#keyword').val();
+			})
+		
+		}	
+	})
+
+
+</script>
 
 </body>
 

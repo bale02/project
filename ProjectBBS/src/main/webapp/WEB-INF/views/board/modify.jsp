@@ -86,7 +86,7 @@
 			history.go(-1);
 		});
 		$(".listBtn").on("click",function(){
-			self.location = "list.do"
+			self.location = "listCriteria.do"
 		});
 	})
 </script>

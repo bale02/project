@@ -40,7 +40,7 @@
 				<div class="box box-primary">
 					<h3 class="box-title">게시글 목록</h3>
 				</div>
-				<div>
+				<div  class="box box-body">
 					<table class="table table-bordered">
 					<tbody>
 					<tr>
