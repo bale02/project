@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import net.board.service.boardService;
+import net.commons.paging.Criteria;
 
 @Controller
 public class BoardController {
@@ -90,6 +91,13 @@ public class BoardController {
 		
 		redirectAttributes.addFlashAttribute("msg","delSuccess");
 		return "redirect:/list.do";
+	}
+	
+	@RequestMapping(value="/listCriteria.do",method=RequestMethod.GET)
+	public String listCriteria(Model model, Criteria criteria)throws Exception{
+		logger.info("listCriteria..");
+		model.addAttribute("boards",boardService.listCriteria(criteria));
+		return "/board/list_criteria";
 	}
 	
 }
