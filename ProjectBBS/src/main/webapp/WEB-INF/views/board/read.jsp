@@ -56,8 +56,43 @@
 						<button type="submit" class="btn btn-danger delBtn" ><i class="fa fa-trash" ></i> 삭제</button>
 					</div>
 				</div> 
-			</div>
 			
+			
+				<div class="box box-warnig">
+					<div class="box-header with-border">
+						<a class="link-black text-lg"><i class="fa fa-pencil"></i> 댓글작성</a>
+					</div>
+					<div class="box-body">
+						<form class="form-horizontal">
+							<div class="form-group margin">
+								<div class="col-sm-10">
+									<textarea class="form-control" id="newReplyText" rows="3" placeholder="댓글 내용 입력" style="resize:none"></textarea>
+								</div>
+								<div class="col-sm-2">
+									<input class="form-control" id="newReplyWriter" type="text" placeholder="댓글 작성자..">
+								</div>
+								<hr/>
+								<div class="col-sm-2">
+									<button type="button" class="btn btn-primary btn-block replyAddBtn"><i class="fa fa-save"></i> 저장</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="box box-success collapsed-box">
+					<div class="box-header with-border">
+						<a href="" class="link-black text-lg"><i class="fa fa-comments-o margin-r-5 replyCount"></i></a>
+						<div class="box-tools">
+							<button type="button" class="btn btn-box-tool" data-widget="collapse">
+								<i class="fa fa-plus"></i>
+							</button>
+						</div>
+					</div>
+					<div class="box-body repliesDiv">
+					
+					</div>
+				</div>
+			</div>
         </section>
         <!-- /.content -->
     </div>
@@ -70,7 +105,60 @@
 <!-- ./wrapper -->
 
 <%@ include file="../include/plugin_js.jsp"%>
-
+<script class="replyTemplate" type="text/x-handlerbars-template">
+	{{#each.}}
+	<div class="post replyDiv" data-reply_No={{reply_No}}>
+		<div class="user-block">
+		<img class = "img-circle img-bordered-sm" src="../dist/img/user1-128x128.jsp" alt="user image">
+		<span class="username">
+			<a href="#">{{reply_Writer}}</a>
+            <a href="#" class="pull-right btn-box-tool replyDelBtn" data-toggle="modal" data-target="#delModal">
+                <i class="fa fa-times"> 삭제</i>
+            </a>
+            <a href="#" class="pull-right btn-box-tool replyModBtn" data-toggle="modal" data-target="#modModal">
+                <i class="fa fa-edit"> 수정</i>
+			</a>
+		</span>
+		<span class="description">{{prettifyDate regDate}}</span>
+		</div>
+		<div class="oldReadyText">{{{escape reply_Text}}}</div>
+		<br/>
+	</div>
+	{{/each}}
+</script>
+<script>
+	$(document).ready(function(){
+		var board_No = "${board.board_No}";
+		Handlebars.registerHelper("escape",function(reply_Text){
+			var text = Handlebars.Utils.escapeExpression(reply_Text);
+			text = text.replace(/(\r\b|\n|\r)/gm,"<br/>");
+			text = text.replace(/( )/gm,"&nbsp;");
+			return new Handlebars.SafeString(text);
+		});
+		Handlerbars.registerHelper("prettifyDate",function(timeValue){
+			var dateObj = new Date(timeValue);
+			var year = dateObj.getFullyear();
+			var month = dateObj.getMonth()+1;
+			var date = dateObj.getDate();
+			var hours = dateObj.getHours();
+			var minutes = dateObj.getMinutes();
+			
+			month <10 ? month='0' + month : month;
+			date < 10 ? date ='0'+date : date;
+			hours < 10 ? hours = '0' + hours : hours;
+			minutes < 10 ? minutes = '0' + minutes : minutes;
+			return year + "-" + month + "-" + date + " " + hours + ":" + mintues;
+		});
+		
+		getReplies("list/"+board_No);
+		
+		function getReplies(repliesUrl){
+			$.getJson(repliesUrl,function(date){
+				printReplies(data.replies,$(".repliesDiv"),$("#replyTemplate"));
+			});
+		}
+	});
+</script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		var formObj = $("form[role='form']");
@@ -90,6 +178,7 @@
 			formObj.submit();
 		});
 	});
+	
 </script>
 
 </body>

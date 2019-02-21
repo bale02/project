@@ -1,20 +1,25 @@
 package net.reply.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import net.reply.domain.replyVO;
 import net.reply.service.replyService;
+import oracle.net.aso.e;
 
-@Controller
+@RestController
 public class ReplyController {
 	private static final Logger logger = LoggerFactory.getLogger(ReplyController.class);
 	
@@ -27,43 +32,56 @@ public class ReplyController {
 		this.replyService = replyService;
 	}
 	
-	@RequestMapping(value="/reply_list.do",method=RequestMethod.GET)
-	public String replyList(@RequestParam("board_no") int board_No,Model model) throws Exception{
-		logger.info("replyList..");
-		model.addAttribute("replies",replyService.list(board_No));
-		return "reply/list";
-	}
-	
-	@RequestMapping(value="/reply_write.do",method=RequestMethod.POST)
-	public String replyWrite(replyVO replyVO) throws Exception{
-		logger.info("replyWrite..");
-		replyService.create(replyVO);
-		return "redirect:/reply_list.do";
-	}
-	
-	@RequestMapping(value="/reply_update.do",method=RequestMethod.POST)
-	public String replyUpdate(replyVO replyVO,Model model) {
-		logger.info("replyUpdate..");
+	@RequestMapping(value="/replies", method=RequestMethod.POST)
+	public ResponseEntity<String> register(@RequestBody replyVO replyVO){
+		ResponseEntity<String> entity =null;
 		try {
-			replyService.update(replyVO);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			replyService.create(replyVO);
+			entity = new ResponseEntity<String>("regSuccess",HttpStatus.OK);
+		}catch(Exception e){
 			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
-		return "redirect:/reply_list.do";
+		return entity;
 	}
 	
-	@RequestMapping(value="/reply_delete.do",method=RequestMethod.GET)
-	public String replyDelete(@RequestParam("reply_no") int reply_No) {
-		logger.info("replyDelete..");
-		
+	@RequestMapping(value="/list/{board_No}", method = RequestMethod.GET)
+	public ResponseEntity<List<replyVO>> list(@PathVariable("board_No") Integer board_No){
+		ResponseEntity<List<replyVO>> entity =null;
+		try {
+			entity = new ResponseEntity<List<replyVO>>(replyService.list(board_No),HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity= new ResponseEntity<List<replyVO>>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value="update/{reply_No}",method = {RequestMethod.PUT, RequestMethod.PATCH})
+	public ResponseEntity<String> update(@PathVariable("reply_No") Integer reply_No,@RequestBody replyVO replyVO){
+		ResponseEntity<String> entity =null;
+		try {
+			replyVO.setReply_No(reply_No);
+			replyService.update(replyVO);
+			entity = new ResponseEntity<String>("modSuccess",HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value="delete/{reply_No}",method = RequestMethod.DELETE)
+	public ResponseEntity<String> delete(@PathVariable("reply_No") Integer reply_No){
+		ResponseEntity<String> entity =null;
 		try {
 			replyService.delete(reply_No);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			entity = new ResponseEntity<String>("delSuccess",HttpStatus.OK);
+		}catch(Exception e) {
 			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
-		
-		return "redirect:/reply_list.do";
+		return entity;
 	}
+	
 }

@@ -50,7 +50,7 @@
 					</div>
 					<div class="box-footer">
 						<ul id="replies">
-						
+							
 						</ul>
 					</div>
 				</div>
@@ -97,7 +97,125 @@
 <!-- ./wrapper -->
 
 <%@ include file="../include/plugin_js.jsp"%>
-
+<script>
+    var board_No = 1000;
+    
+getReplies();
+    
+    function getReplies() {
+        $.getJSON("list/" + board_No, function (data) {
+            console.log(data);
+            var str = "";
+            
+            $.each(data,function () {
+                str += "<li data-reply_No='" + this.reply_No + "' class='replyLi'>"
+                    +   "<p class='reply_Text'>" + this.reply_Text + "</p>"
+                    +   "<p class='reply_Writer'>" + this.reply_Writer + "</p>"
+                    +   "<button type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#modifyModal'>댓글 수정</button>"
+                    + "</li>"
+                    + "<hr/>";
+            });
+            $("#replies").html(str);
+        });
+    }
+    
+    $('#replyAddBtn').on('click',function(){
+    	var reply_Text = $("#newReplyText");
+    	var reply_Writer = $("#newReplyWriter");
+    	
+    	var replyTextVal = reply_Text.val();
+    	var replyWriterVal = reply_Writer.val();
+    	
+    	$.ajax({
+    		type: "POST",
+    		url:"replies",
+    		headers : {
+    			"Content-type" : "application/json",
+    			"X-HTTP-Method-Override" : "POST"
+    		},
+    		dataType : "text",
+    		data : JSON.stringify({
+    			board_No : board_No,
+    			reply_Text : replyTextVal,
+    			reply_Writer : replyWriterVal
+    		}),
+    		success : function(result){
+    			if(result == "regSuccess"){
+    				alert("댓글 등록 완료!");
+    			}
+    			getReplies();
+    			reply_Text.val("");
+    			reply_Writer.val("");
+    		}
+    	});
+    });
+    
+    $("#replies").on("click",".replyLi button", function(){
+    	var reply = $(this).parent();
+    	
+    	var reply_No = reply.attr("data-reply_No");
+    	var reply_Text = reply.find(".reply_Text").text();
+    	var reply_Writer = reply.find(".reply_Writer").text();
+    	
+    	$("#reply_No").val(reply_No);
+    	$("#reply_Text").val(reply_Text);
+    	$("#reply_Writer").val(reply_Writer);
+    });
+    
+    $(".modalDelBtn").on("click",function(){
+    	var reply_No=$(this).parent().parent().find("#reply_No").val();
+    	
+    	$.ajax({
+    		type :"delete",
+    		url : "delete/" + reply_No,
+    		headers : {
+    			"Content-type" : "application/json",
+    			"X-HTTP-Method-Override" : "DELETE"
+    		},
+    		dataType : "text",
+    		success : function (result){
+    			console.log("result : " + result);
+    			if(result == "delSuccess"){
+    				alert("댓글 삭제 완료!");
+    				$("#modifyModal").modal("hide");
+    				getReplies();
+    			}
+    		}
+    	})
+    })
+    
+    $(".modalModBtn").on("click",function(){
+    	var reply = $(this).parent().parent();
+    	var reply_No = reply.find("#reply_No").val();
+    	var reply_Text = reply.find("#reply_Text").val();
+    	
+    	$.ajax({
+    		type :"put",
+    		url : "update/" + reply_No,
+    		headers : {
+    			"Content-type" : "application/json",
+    			"X-HTTP-Method-Override" : "PUT"
+    		},
+    		data : JSON.stringify(
+    			{reply_Text : reply_Text}
+    		),
+    		dataType : "text",
+    		success : function(result){
+    			console.log("result : " + result);
+    			if(result == "modSuccess"){
+    				alert("댓글 수정 완료!");
+    				$("#modifyModal").modal("hide");
+    				getReplies();
+    			}
+    		}
+    		
+    	})
+    })
+    
+    
+    
+    
+</script>
 </body>
 
 </html>
