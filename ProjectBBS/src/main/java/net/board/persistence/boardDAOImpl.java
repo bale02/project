@@ -29,8 +29,8 @@ public class boardDAOImpl implements boardDAO {
 	}
 	
 	@Override
-	public boardVO read(Integer board_no) throws Exception{
-		return sqlSession.selectOne(NAMESPACE+".read",board_no);
+	public boardVO read(Integer board_No) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+".read",board_No);
 	}
 	
 	@Override
@@ -39,8 +39,8 @@ public class boardDAOImpl implements boardDAO {
 	}
 	
 	@Override
-	public void delete(Integer board_no) throws Exception{
-		sqlSession.delete(NAMESPACE+".delete",board_no);
+	public void delete(Integer board_No) throws Exception{
+		sqlSession.delete(NAMESPACE+".delete",board_No);
 	}
 	
 	@Override

@@ -35,7 +35,7 @@
 							<h3 class="box-title">게시글 수정</h3>
 						</div> 
 						<div class="box-body">
-							<input type="hidden" name="board_no" value="${board.board_no}">
+							<input type="hidden" name="board_No" value="${board.board_No}">
 							<div class="form-group">
 								<label for="title">제목</label>
 								<input class="form-control" id="title" name="title" placeholder="제목을 입력해주세요" value="${board.title}">

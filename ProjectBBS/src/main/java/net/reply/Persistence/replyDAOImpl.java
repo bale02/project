@@ -45,4 +45,13 @@ public class replyDAOImpl implements replyDAO{
 		// TODO Auto-generated method stub
 		sqlSession.delete(NAMESPACE+".delete",reply_No);
 	}
+
+	@Override
+	public int count(Integer board_No) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+".countReplies", board_No);
+	}
+	
+	
+	
+	
 }

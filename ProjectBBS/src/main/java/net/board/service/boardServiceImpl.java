@@ -29,9 +29,9 @@ public class boardServiceImpl implements boardService {
 	}
 
 	@Override
-	public boardVO read(Integer board_no) throws Exception {
+	public boardVO read(Integer board_No) throws Exception {
 		// TODO Auto-generated method stub
-		return boardDAO.read(board_no);
+		return boardDAO.read(board_No);
 	}
 
 	@Override
@@ -41,9 +41,9 @@ public class boardServiceImpl implements boardService {
 	}
 
 	@Override
-	public void delete(Integer board_no) throws Exception {
+	public void delete(Integer board_No) throws Exception {
 		// TODO Auto-generated method stub
-		boardDAO.delete(board_no);
+		boardDAO.delete(board_No);
 	}
 
 	@Override

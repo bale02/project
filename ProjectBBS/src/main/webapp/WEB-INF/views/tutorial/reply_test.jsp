@@ -100,7 +100,7 @@
 <script>
     var board_No = 1000;
     
-getReplies();
+	getReplies();
     
     function getReplies() {
         $.getJSON("list/" + board_No, function (data) {
@@ -108,12 +108,21 @@ getReplies();
             var str = "";
             
             $.each(data,function () {
-                str += "<li data-reply_No='" + this.reply_No + "' class='replyLi'>"
-                    +   "<p class='reply_Text'>" + this.reply_Text + "</p>"
-                    +   "<p class='reply_Writer'>" + this.reply_Writer + "</p>"
-                    +   "<button type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#modifyModal'>댓글 수정</button>"
-                    + "</li>"
-                    + "<hr/>";
+                str += "<div class='post replyDiv' data-reply_No="+this.reply_No+">"
+                	+	"<div class='user-block'>"
+                	+	"<img class='img-circle img-bordered-sm' src='/dist/img/user1-128x128.jpg' alt='user image'>"
+                	+	"<span class='username'>"
+                    +   "<a href='#'>"+this.reply_Writer+"</a>"
+                    +	"<a href='#' class='pull-right btn-box-tool replyDelBtn' data-toggle='modal' data-target='#delModal'><i class='fa fa-times'> 삭제</i>"
+                    +   "</a>"
+                    +   "<a href='#' class='pull-right btn-box-tool replyModBtn' data-toggle='modal' data-target='#modModal'>"
+                    +   "<i class='fa fa-edit'> 수정</i>"
+                   	+	"</a>"
+                   	+	"</sapn>"
+                   	+	"<span class='description'>"+this.regDate+"</span>"
+                   	+	"</div>"
+                   	+	"<div class='oldReplyText'>"+this.reply_Text+"</div>"
+                   	+	"<br/>"
             });
             $("#replies").html(str);
         });

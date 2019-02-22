@@ -12,4 +12,6 @@ public interface replyDAO {
 	void update(replyVO replyVO) throws Exception;
 	
 	void delete(Integer reply_No) throws Exception;
+	
+	int count(Integer board_No) throws Exception;
 }

@@ -52,8 +52,8 @@
 					</tr>
 					<c:forEach var="board" items="${boards}">
 						<tr>
-							<td>${board.board_no}</td>
-							<td><a href="read.do?board_no=${board.board_no}">${board.title}</a></td>
+							<td>${board.board_No}</td>
+							<td><a href="read.do?board_No=${board.board_No}">${board.title}</a></td>
 							<td>${board.writer}</td>
 							<td><fmt:formatDate value="${board.regdate}" pattern="yyyy-MM-dd a HH:mm"/></td>
 							<td><span class="badge bg-red">${board.viewcnt}</span></td>

@@ -3,18 +3,18 @@ package net.board.domain;
 import java.util.Date;
 
 public class boardVO {
-	private int board_no;
+	private int board_No;
 	private String title;
 	private String content;
 	private String writer;
 	private Date regdate;
 	private int viewcnt;
 	
-	public int getboard_no() {
-		return board_no;
+	public int getboard_No() {
+		return board_No;
 	}
-	public void setboard_no(int board_no) {
-		this.board_no = board_no;
+	public void setboard_No(int board_No) {
+		this.board_No = board_No;
 	}
 	public String getTitle() {
 		return title;

@@ -15,16 +15,16 @@
 	</insert>
 
 	<select id="read" parameterType="int" resultMap="boardResultMap">
-		select * from board where board_no = #{board_no}
+		select * from board where board_no = #{board_No}
 	</select>
 	
 	<update id="update">
 		update board set title =#{title} , content=#{content}
-			where board_no=#{board_no}
+			where board_no=#{board_No}
 	</update>
 	
 	<delete id="delete">
-		delete from board where board_no=#{board_no}
+		delete from board where board_no=#{board_No}
 	</delete>
 	
 	<select id="listAll" resultType="boardVO">
@@ -70,7 +70,7 @@
  	</select>
 	
 	<resultMap type="boardVO" id="boardResultMap">
-		<id property="board_no" column="board_no"/>
+		<id property="board_No" column="board_No"/>
 		<result property="title" column="title"/>
 		<result property="content" column="content"/>
 		<result property="writer" column="writer"/>

@@ -8,11 +8,11 @@ import net.commons.paging.Criteria;
 public interface boardService {
 	void create(boardVO boardVO) throws Exception;
 	
-	boardVO read(Integer board_no) throws Exception;
+	boardVO read(Integer board_No) throws Exception;
 	
 	void update(boardVO boardVO) throws Exception;
 	
-	void delete(Integer board_no) throws Exception;
+	void delete(Integer board_No) throws Exception;
 	
 	List<boardVO> listAll() throws Exception;
 	

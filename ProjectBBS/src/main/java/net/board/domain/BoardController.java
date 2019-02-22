@@ -60,17 +60,17 @@ public class BoardController {
 	
 	//게시글 확인
 	@RequestMapping(value="/read.do",method=RequestMethod.GET)
-	public String read(@RequestParam("board_no") int board_no,Model model) throws Exception{
+	public String read(@RequestParam("board_No") int board_No,Model model) throws Exception{
 		logger.info("read..");
-		model.addAttribute("board",boardService.read(board_no));
+		model.addAttribute("board",boardService.read(board_No));
 		return "board/read";
 	}
 	
 	// 게시글 수정 페이지 이동
 	@RequestMapping(value="/modify.do",method=RequestMethod.GET)
-	public String modifyGET(@RequestParam("board_no") int board_no ,Model model) throws Exception{
+	public String modifyGET(@RequestParam("board_No") int board_No ,Model model) throws Exception{
 		logger.info("modify Get..");
-		model.addAttribute("board",boardService.read(board_no));
+		model.addAttribute("board",boardService.read(board_No));
 		return "/board/modify";
 	}
 	
@@ -82,16 +82,16 @@ public class BoardController {
 		boardService.update(boardVO);
 		
 		redirectAttributes.addFlashAttribute("msg", "modSucces");
-		return "redirect:/read.do?board_no="+boardVO.getboard_no();
+		return "redirect:/read.do?board_No="+boardVO.getboard_No();
 		
 	}
 	
 	//게시글 삭제
 	@RequestMapping(value="/delete.do",method=RequestMethod.GET)
-	public String delete(@RequestParam("board_no") int board_no,RedirectAttributes redirectAttributes) throws Exception {
+	public String delete(@RequestParam("board_No") int board_No,RedirectAttributes redirectAttributes) throws Exception {
 		logger.info("remove..");
 		
-		boardService.delete(board_no);
+		boardService.delete(board_No);
 		
 		redirectAttributes.addFlashAttribute("msg","delSuccess");
 		return "redirect:/list.do";

@@ -26,4 +26,8 @@
 		delete from board_reply where reply_no = #{reply_No}
 	</delete>
 	
+	
+	<select id="countReplies" resultType="int">
+		select count(*)  from board_reply where board_no = #{board_No} 
+	</select>
 </mapper>

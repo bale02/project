@@ -48,7 +48,7 @@
 				</div>
 				<div class="box-footer">
 					<form role="form" method="post">
-						<input type="hidden" name="board_no" value="${board.board_no}">
+						<input type="hidden" name="board_No" value="${board.board_No}">
 					</form>
 					<button type="submit" class="btn btn-primary listBtn" ><i class="fa fa-list"></i> 목록</button>
 					<div class="pull-right">
@@ -89,7 +89,9 @@
 						</div>
 					</div>
 					<div class="box-body repliesDiv">
-					
+						<ul id="replies">
+						
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -105,57 +107,90 @@
 <!-- ./wrapper -->
 
 <%@ include file="../include/plugin_js.jsp"%>
-<script class="replyTemplate" type="text/x-handlerbars-template">
-	{{#each.}}
-	<div class="post replyDiv" data-reply_No={{reply_No}}>
-		<div class="user-block">
-		<img class = "img-circle img-bordered-sm" src="../dist/img/user1-128x128.jsp" alt="user image">
-		<span class="username">
-			<a href="#">{{reply_Writer}}</a>
-            <a href="#" class="pull-right btn-box-tool replyDelBtn" data-toggle="modal" data-target="#delModal">
-                <i class="fa fa-times"> 삭제</i>
-            </a>
-            <a href="#" class="pull-right btn-box-tool replyModBtn" data-toggle="modal" data-target="#modModal">
-                <i class="fa fa-edit"> 수정</i>
-			</a>
-		</span>
-		<span class="description">{{prettifyDate regDate}}</span>
-		</div>
-		<div class="oldReadyText">{{{escape reply_Text}}}</div>
-		<br/>
-	</div>
-	{{/each}}
+
+<script id="replyTemplate" type="text/x-handlebars-template">
+    {{#each.}}
+    <div class="post replyDiv" data-reply_No={{reply_No}}>
+		<%--댓글 작성자 프로필사진--%>
+        <div class="user-block">
+		<img class="img-circle img-bordered-sm" src="/dist/img/user1-128x128.jpg" alt="user image">
+            <%--댓글 작성자--%>
+            <span class="username">
+                <%--작성자 이름--%>
+                <a href="#">{{reply_Writer}}</a>
+                <%--댓글 삭제 버튼--%>
+                <a href="#" class="pull-right btn-box-tool replyDelBtn" data-toggle="modal" data-target="#delModal">
+                    <i class="fa fa-times"> 삭제</i>
+                </a>
+                <%--댓글 수정 버튼--%>
+                <a href="#" class="pull-right btn-box-tool replyModBtn" data-toggle="modal" data-target="#modModal">
+                    <i class="fa fa-edit"> 수정</i>
+                </a>
+            </span>
+            <%--댓글 작성일자--%>
+            <span class="description">{{prettifyDate regDate}}</span>
+        </div>
+        <%--댓글 내용--%>
+        <div class="oldReplyText">{{{escape reply_Text}}}</div>
+        <br/>
+    </div>
+    {{/each}}
 </script>
 <script>
 	$(document).ready(function(){
+		
 		var board_No = "${board.board_No}";
-		Handlebars.registerHelper("escape",function(reply_Text){
-			var text = Handlebars.Utils.escapeExpression(reply_Text);
-			text = text.replace(/(\r\b|\n|\r)/gm,"<br/>");
-			text = text.replace(/( )/gm,"&nbsp;");
-			return new Handlebars.SafeString(text);
+		
+		getReplies("count/"+board_No);
+		
+function getReplies(repliesUrl) {
+		$.getJSON(repliesUrl, function (data) {
+		    var str = "";
+		    printReplyCount(data.repliesCount);
+		    $.each(data,function () {
+		        str += "<div class='post replyDiv' data-reply_No="+this.reply_No+">"
+		        	+	"<div class='user-block'>"
+		        	+	"<img class='img-circle img-bordered-sm' src='/dist/img/user1-128x128.jpg' alt='user image'>"
+		        	+	"<span class='username'>"
+		            +   "<a href='#'>"+this.reply_Writer+"</a>"
+		            +	"<a href='#' class='pull-right btn-box-tool replyDelBtn' data-toggle='modal' data-target='#delModal'><i class='fa fa-times'> 삭제</i>"
+		            +   "</a>"
+		            +   "<a href='#' class='pull-right btn-box-tool replyModBtn' data-toggle='modal' data-target='#modModal'>"
+		            +   "<i class='fa fa-edit'> 수정</i>"
+		           	+	"</a>"
+		           	+	"</sapn>"
+		           	+	"<span class='description'>"+this.regDate+"</span>"
+		           	+	"</div>"
+		           	+	"<div class='oldReplyText'>"+this.reply_Text+"</div>"
+		           	+	"<br/>"
+		    });
+		    $("#replies").html(str);
 		});
-		Handlerbars.registerHelper("prettifyDate",function(timeValue){
-			var dateObj = new Date(timeValue);
-			var year = dateObj.getFullyear();
-			var month = dateObj.getMonth()+1;
-			var date = dateObj.getDate();
-			var hours = dateObj.getHours();
-			var minutes = dateObj.getMinutes();
+}
+		
+		function printReplyCount(repliesCount){
 			
-			month <10 ? month='0' + month : month;
-			date < 10 ? date ='0'+date : date;
-			hours < 10 ? hours = '0' + hours : hours;
-			minutes < 10 ? minutes = '0' + minutes : minutes;
-			return year + "-" + month + "-" + date + " " + hours + ":" + mintues;
-		});
+			var replyCount = $(".replyCount");
+			var collapsedBox = $(".collapsed-box");
+			
+			if(repliesCount ===0){
+				replyCount.html(" 댓글이 없습니다.");
+				collapsedBox.find(".btn-box-tool").remove();
+				return;
+			}else{
+			replyCount.html(' 댓글목록 ('+repliesCount+')');
+			collapsedBox.find(".box-tools").html(
+				"<button type='button' class='btn btn-box-tool' data-widget='collapse'>"
+				+ "<i class='fa fa-plus'></i>"
+				+ "</button>"
+			)};
+		}
 		
-		getReplies("list/"+board_No);
-		
-		function getReplies(repliesUrl){
-			$.getJson(repliesUrl,function(date){
-				printReplies(data.replies,$(".repliesDiv"),$("#replyTemplate"));
-			});
+		function printReplies(replyArr,targetArea,templateObj){
+			var replyTemplate = Handlebars.compile(templateObj.html());
+			var html = replyTemplate(replyArr);
+			$(".replyDiv").remove();
+			targetArea.html(html);
 		}
 	});
 </script>

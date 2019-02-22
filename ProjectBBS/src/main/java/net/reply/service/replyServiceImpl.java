@@ -41,6 +41,11 @@ public class replyServiceImpl implements replyService {
 		// TODO Auto-generated method stub
 		replyDAO.delete(reply_No);
 	}
+
+	@Override
+	public int count(Integer board_No) throws Exception {
+		return replyDAO.count(board_No);
+	}
 	
 	
 }
