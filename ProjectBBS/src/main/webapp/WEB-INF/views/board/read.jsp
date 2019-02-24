@@ -141,16 +141,16 @@
 		
 		var board_No = "${board.board_No}";
 		
-		getReplies("count/"+board_No);
+		getReplies("list/"+board_No);
 		
-function getReplies(repliesUrl) {
+		function getReplies(repliesUrl) {
 		$.getJSON(repliesUrl, function (data) {
 		    var str = "";
-		    printReplyCount(data.repliesCount);
+		    
 		    $.each(data,function () {
 		        str += "<div class='post replyDiv' data-reply_No="+this.reply_No+">"
 		        	+	"<div class='user-block'>"
-		        	+	"<img class='img-circle img-bordered-sm' src='/dist/img/user1-128x128.jpg' alt='user image'>"
+		        	+	"<img class='img-circle img-bordered-sm' src='../dist/img/user1-128x128.jpg' alt='user image'>"
 		        	+	"<span class='username'>"
 		            +   "<a href='#'>"+this.reply_Writer+"</a>"
 		            +	"<a href='#' class='pull-right btn-box-tool replyDelBtn' data-toggle='modal' data-target='#delModal'><i class='fa fa-times'> 삭제</i>"
@@ -166,10 +166,13 @@ function getReplies(repliesUrl) {
 		    });
 		    $("#replies").html(str);
 		});
-}
+		}			
+		getReplyCount();
 		
-		function printReplyCount(repliesCount){
+		function getReplyCount(){
+			$.getJSON("count/"+board_No,function(data){
 			
+			var repliesCount = data.repliesCount; 
 			var replyCount = $(".replyCount");
 			var collapsedBox = $(".collapsed-box");
 			
@@ -184,8 +187,9 @@ function getReplies(repliesUrl) {
 				+ "<i class='fa fa-plus'></i>"
 				+ "</button>"
 			)};
+		})
 		}
-		
+	
 		function printReplies(replyArr,targetArea,templateObj){
 			var replyTemplate = Handlebars.compile(templateObj.html());
 			var html = replyTemplate(replyArr);
