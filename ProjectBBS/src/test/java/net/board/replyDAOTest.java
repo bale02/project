@@ -25,7 +25,7 @@ public class replyDAOTest {
 		
 		for(int i=1;i<=10;i++) {
 			replyVO replyVO = new replyVO();
-			replyVO.setBoard_No(1000);
+			replyVO.setBoard_No(1);
 			replyVO.setReply_Text(i+"번째 댓글입니다.");
 			replyVO.setReply_Writer("user0"+(i%10));
 			replyDAO.create(replyVO);

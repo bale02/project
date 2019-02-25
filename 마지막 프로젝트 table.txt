@@ -1,0 +1,27 @@
+create table board(
+	board_no number(5) not null,
+	title varchar2(200) not null,
+	content varchar(500),
+	writer varchar2(40) not null,
+	regdate date,
+	viewcnt number(5),
+	primary key(board_no)
+)
+
+create sequence board_seq;
+
+create table board_reply(
+	reply_no number(5) not null,
+	board_no number(5) not null,
+	reply_text varchar2(500) not null,
+	reply_writer varchar2(40) not null,
+	regdate date not null,
+	update_date date not null,
+	primary key (reply_no)
+);
+
+drop sequence board_reply_seq;
+	
+create sequence board_reply_seq;
+
+alter table board_reply add constraint FK_board foreign key (board_no) references board(board_no);
