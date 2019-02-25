@@ -6,6 +6,8 @@ import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import net.board.domain.boardVO;
 import net.board.persistence.boardDAO;
@@ -27,10 +29,12 @@ public class boardServiceImpl implements boardService {
 		// TODO Auto-generated method stub
 		boardDAO.create(boardVO);
 	}
-
+	
+	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public boardVO read(Integer board_No) throws Exception {
 		// TODO Auto-generated method stub
+		boardDAO.updateViewCnt(board_No);
 		return boardDAO.read(board_No);
 	}
 
@@ -75,4 +79,6 @@ public class boardServiceImpl implements boardService {
 		// TODO Auto-generated method stub
 		return boardDAO.listSearch(criteria);
 	}
+	
+
 }

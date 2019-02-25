@@ -1,6 +1,8 @@
 package net.board.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -82,6 +84,22 @@ public class boardDAOImpl implements boardDAO {
 	@Override
 	public List<boardVO> listSearch(Criteria criteria) throws Exception {
 		return sqlSession.selectList(NAMESPACE+".select",criteria);			
+	}
+
+	@Override
+	public void updateReplyCnt(Integer board_No, int amount) throws Exception {
+		// TODO Auto-generated method stub
+		Map<String,Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("board_No", board_No);
+		paramMap.put("amount",amount);
+		
+		sqlSession.update(NAMESPACE + ".updateReplyCnt",paramMap);
+	}
+
+	@Override
+	public void updateViewCnt(Integer board_No) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.update(NAMESPACE+".updateViewCnt",board_No);
 	}
 	
 	

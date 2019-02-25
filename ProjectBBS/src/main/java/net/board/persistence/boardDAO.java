@@ -25,4 +25,9 @@ public interface boardDAO {
 	int count() throws Exception;
 	
 	List<boardVO> listSearch(Criteria criteria) throws Exception;
+	
+	void updateReplyCnt(Integer board_No,int amount) throws Exception;
+	
+	void updateViewCnt(Integer board_No) throws Exception;
+
 }

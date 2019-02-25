@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import net.board.persistence.boardDAO;
 import net.reply.Persistence.replyDAO;
 import net.reply.domain.replyVO;
 
@@ -13,9 +14,12 @@ import net.reply.domain.replyVO;
 public class replyServiceImpl implements replyService {
 	private final replyDAO replyDAO;
 	
+	private final boardDAO boardDAO;
+	
 	@Inject
-	public replyServiceImpl(replyDAO replyDAO) {
+	public replyServiceImpl(replyDAO replyDAO,boardDAO boardDAO) {
 		this.replyDAO=replyDAO;
+		this.boardDAO = boardDAO;
 	}
 
 	@Override
@@ -28,6 +32,7 @@ public class replyServiceImpl implements replyService {
 	public void create(replyVO replyVO) throws Exception {
 		// TODO Auto-generated method stub
 		replyDAO.create(replyVO);
+		boardDAO.updateReplyCnt(replyVO.getBoard_No(),1);
 	}
 
 	@Override
@@ -39,13 +44,17 @@ public class replyServiceImpl implements replyService {
 	@Override
 	public void delete(Integer reply_No) throws Exception {
 		// TODO Auto-generated method stub
+		int board_No = replyDAO.getboard_No(reply_No);
 		replyDAO.delete(reply_No);
+		boardDAO.updateReplyCnt(board_No, -1);
 	}
 
 	@Override
 	public int count(Integer board_No) throws Exception {
 		return replyDAO.count(board_No);
 	}
+	
+
 	
 	
 }

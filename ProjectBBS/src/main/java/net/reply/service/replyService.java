@@ -14,4 +14,5 @@ public interface replyService {
 	void delete(Integer reply_No) throws Exception;
 	
 	int count(Integer board_No)throws Exception;
+
 }

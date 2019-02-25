@@ -14,4 +14,6 @@ public interface replyDAO {
 	void delete(Integer reply_No) throws Exception;
 	
 	int count(Integer board_No) throws Exception;
+	
+	int getboard_No(Integer reply_No) throws Exception;
 }

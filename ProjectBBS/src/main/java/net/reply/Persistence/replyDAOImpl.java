@@ -50,6 +50,12 @@ public class replyDAOImpl implements replyDAO{
 	public int count(Integer board_No) throws Exception {
 		return sqlSession.selectOne(NAMESPACE+".countReplies", board_No);
 	}
+
+	@Override
+	public int getboard_No(Integer reply_No) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(NAMESPACE + ".getBoardNo",reply_No);
+	}
 	
 	
 	

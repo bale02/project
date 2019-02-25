@@ -53,7 +53,9 @@
 					<c:forEach var="board" items="${boards}">
 						<tr>
 							<td>${board.board_No}</td>
-							<td><a href="read.do?board_No=${board.board_No}">${board.title}</a></td>
+							<td><a href="read.do?board_No=${board.board_No}">${board.title}</a>
+								<span class="badge bg-teal"><i class="fa fa-comment-o"></i>+${board.reply_Cnt } </span>
+							</td>
 							<td>${board.writer}</td>
 							<td><fmt:formatDate value="${board.regdate}" pattern="yyyy-MM-dd a HH:mm"/></td>
 							<td><span class="badge bg-red">${board.viewcnt}</span></td>

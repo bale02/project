@@ -32,7 +32,7 @@ public class boardDAOTest {
 		List<boardVO> list = boardDAO.listCriteria(criteria);
 		
 		for(boardVO boardVO : list) {
-			logger.info(boardVO.getboard_No() + ":" + boardVO.getTitle());
+			logger.info(boardVO.getBoard_No() + ":" + boardVO.getTitle());
 		}
 		
 	}

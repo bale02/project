@@ -7,9 +7,9 @@
 	
 	<insert id="create">
 		insert into board(
-			board_no,title,content,writer,regdate,viewcnt
+			board_no,title,content,writer,regdate,viewcnt,reply_cnt
 		) values(
-			board_seq.nextval,#{title},#{content},#{writer},sysdate,0
+			board_seq.nextval,#{title},#{content},#{writer},sysdate,0,0
 		)
 		
 	</insert>
@@ -46,7 +46,7 @@
     </select>
     
     <select id="listCriteria" resultType="boardVO">
-      select * from ( select rownum as rn, b.* from ( select * from board
+      select * from ( select rownum as rn, b.*  from ( select * from board
       <if test="skey != null">
          <if test="skey == 'writer'"> where upper(writer) like '%' || upper(#{sval}) || '%' </if>
          <if test="skey == 'title'"> where upper(title) like '%' || upper(#{sval}) || '%' </if>
@@ -55,6 +55,7 @@
       </if>
       order by board_no desc ) b ) where rn between #{start} and #{end} 
    </select>
+   
     
     <select id="count" resultType="int">
     	select count(*) from board
@@ -68,6 +69,14 @@
          <if test="skey == 'all'"> where upper(writer) || upper(title) || upper(content) like '%' || upper(#{sval}) || '%'</if>
       </if>
  	</select>
+ 	
+ 	<update id="updateReplyCnt">
+ 		update board set reply_cnt = reply_cnt + #{amount} where board_no = #{board_No}
+ 	</update>
+	
+	<update id="updateViewCnt">
+		update board set viewcnt = viewcnt + '1' where board_no = #{board_No}
+	</update>
 	
 	<resultMap type="boardVO" id="boardResultMap">
 		<id property="board_No" column="board_No"/>
@@ -76,6 +85,6 @@
 		<result property="writer" column="writer"/>
 		<result property="regdate" column="regdate"/>
 		<result property="viewcnt" column="viewcnt"/>		
-
+		<result property="reply_Cnt" column="reply_Cnt"/>
 	</resultMap>
 </mapper>	

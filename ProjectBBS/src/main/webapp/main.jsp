@@ -19,7 +19,7 @@
 		 	Now loading...
 		 </b>
 		</font>
-	</div>r
+	</div>
 </body>
 </html>
 

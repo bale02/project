@@ -9,11 +9,12 @@ public class boardVO {
 	private String writer;
 	private Date regdate;
 	private int viewcnt;
+	private int reply_Cnt;
 	
-	public int getboard_No() {
+	public int getBoard_No() {
 		return board_No;
 	}
-	public void setboard_No(int board_No) {
+	public void setBoard_No(int board_No) {
 		this.board_No = board_No;
 	}
 	public String getTitle() {
@@ -46,4 +47,12 @@ public class boardVO {
 	public void setViewcnt(int viewcnt) {
 		this.viewcnt = viewcnt;
 	}
+	public int getReply_Cnt() {
+		return reply_Cnt;
+	}
+	public void setReply_Cnt(int reply_Cnt) {
+		this.reply_Cnt = reply_Cnt;
+	}
+	
+	
 }

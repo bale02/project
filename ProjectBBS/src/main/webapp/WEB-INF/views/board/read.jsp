@@ -94,6 +94,49 @@
 						</ul>
 					</div>
 				</div>
+				<%--댓글 수정 영역 --%>
+				<div class="modal fade" id="modModal">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title">댓글 수정</h4>
+							</div>
+							<div class="modal-body" data-rno>
+								<input type="hidden" class="reply_No"/>
+								<textarea class="form-control" id="reply_Text" name="reply_Text" rows="3" style="resize:none"></textarea>	
+							</div>
+							<div class="modal-footer">
+								<div>
+									<button type="button" class="btn btn-primary modalModBtn">수정</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<%--댓글 삭제 영역 --%>
+				 <div class="modal fade" id="delModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">댓글 삭제</h4>
+                                <input type="hidden" class="rno"/>
+                            </div>
+                            <div class="modal-body" data-rno>
+                                <p>댓글을 삭제하시겠습니까?</p>
+                                <input type="hidden" class="rno"/>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary modalDelBtn">삭제</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 			</div>
         </section>
         <!-- /.content -->
@@ -137,39 +180,46 @@
     {{/each}}
 </script>
 <script>
-	$(document).ready(function(){
-		
-		var board_No = "${board.board_No}";
-		
-		getReplies("list/"+board_No);
-		
-		function getReplies(repliesUrl) {
-		$.getJSON(repliesUrl, function (data) {
-		    var str = "";
-		    
-		    $.each(data,function () {
-		        str += "<div class='post replyDiv' data-reply_No="+this.reply_No+">"
-		        	+	"<div class='user-block'>"
-		        	+	"<img class='img-circle img-bordered-sm' src='../dist/img/user1-128x128.jpg' alt='user image'>"
-		        	+	"<span class='username'>"
-		            +   "<a href='#'>"+this.reply_Writer+"</a>"
-		            +	"<a href='#' class='pull-right btn-box-tool replyDelBtn' data-toggle='modal' data-target='#delModal'><i class='fa fa-times'> 삭제</i>"
-		            +   "</a>"
-		            +   "<a href='#' class='pull-right btn-box-tool replyModBtn' data-toggle='modal' data-target='#modModal'>"
-		            +   "<i class='fa fa-edit'> 수정</i>"
-		           	+	"</a>"
-		           	+	"</sapn>"
-		           	+	"<span class='description'>"+this.regDate+"</span>"
-		           	+	"</div>"
-		           	+	"<div class='oldReplyText'>"+this.reply_Text+"</div>"
-		           	+	"<br/>"
-		    });
-		    $("#replies").html(str);
-		});
-		}			
-		getReplyCount();
-		
-		function getReplyCount(){
+$(document).ready(function () {
+
+    var board_No = "${board.board_No }";  // 현재 게시글 번호
+   
+    // 댓글 내용 : 줄바꿈/공백처리
+    Handlebars.registerHelper("escape", function (replyText) {
+        var text = Handlebars.Utils.escapeExpression(replyText);
+        text = text.replace(/(\r\n|\n|\r)/gm, "<br/>");
+        text = text.replace(/( )/gm, "&nbsp;");
+        return new Handlebars.SafeString(text);
+    });
+
+    // 댓글 등록일자 : 날짜/시간 2자리로 맞추기
+    Handlebars.registerHelper("prettifyDate", function (timeValue) {
+        var dateObj = new Date(timeValue);
+        var year = dateObj.getFullYear();
+        var month = dateObj.getMonth() + 1;
+        var date = dateObj.getDate();
+        var hours = dateObj.getHours();
+        var minutes = dateObj.getMinutes();
+        // 2자리 숫자로 변환
+        month < 10 ? month = '0' + month : month;
+        date < 10 ? date = '0' + date : date;
+        hours < 10 ? hours = '0' + hours : hours;
+        minutes < 10 ? minutes = '0' + minutes : minutes;
+        return year + "-" + month + "-" + date + " " + hours + ":" + minutes;
+    });
+
+    // 댓글 목록 함수 호출
+    getReplies();
+
+    // 댓글 목록 함수
+    function getReplies() {
+        $.getJSON("count/"+board_No, function (data) {
+            printReplies(data.replies, $(".repliesDiv"), $("#replyTemplate"));
+        });
+    }
+    getReplyCount();
+
+ 		function getReplyCount(){
 			$.getJSON("count/"+board_No,function(data){
 			
 			var repliesCount = data.repliesCount; 
@@ -189,15 +239,120 @@
 			)};
 		})
 		}
+
+
+    // 댓글 목록 출력 함수
+    function printReplies(replyArr, targetArea, templateObj) {
+        var replyTemplate = Handlebars.compile(templateObj.html());
+        var html = replyTemplate(replyArr);
+        $(".replyDiv").remove();
+        targetArea.html(html);
+    }
 	
-		function printReplies(replyArr,targetArea,templateObj){
-			var replyTemplate = Handlebars.compile(templateObj.html());
-			var html = replyTemplate(replyArr);
-			$(".replyDiv").remove();
-			targetArea.html(html);
-		}
+		$(".replyAddBtn").on("click",function(){
+			var replyWriterObj = $("#newReplyWriter");
+			var replyTextObj = $("#newReplyText");
+			var replyWriter = replyWriterObj.val();
+			var replyText = replyTextObj.val();
+			
+            $.ajax({
+                type: "post",
+                url: "replies/",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "POST"
+                },
+                dataType: "text",
+                data: JSON.stringify({
+                    board_No: board_No,
+                    reply_Writer: replyWriter,
+                    reply_Text: replyText
+                }),
+                success: function (result) {
+                    console.log("result : " + result);
+                    if (result === "regSuccess") {
+                        alert("댓글이 등록되었습니다.");
+                       
+                        getReplies(); // 댓글 목록 호출
+                        getReplyCount();
+                        replyTextObj.val("");   // 댓글 입력창 공백처리
+                        replyWriterObj.val("");   // 댓글 입력창 공백처리
+                    }
+                },
+                error: function(){
+                	alert("error");
+                }
+            });
+
+		});
+		//댓글수정을 위한 modal 값에 데이터 넣기
+		
+		$(".repliesDiv").on("click",".replyDiv",function(event){
+			var reply = $(this);
+			$(".reply_No").val(reply.attr("data-reply_No"));
+		});
+		
+		//modal 창의 댓글 수정버튼 클릭
+		$(".modalModBtn").on("click",function(){
+			var reply_No = $(".reply_No").val();
+			var reply_TextObj = $("#reply_Text");
+			var reply_Text = reply_TextObj.val();
+			
+			if(reply_Text == null || reply_Text == ""){
+				alert("글을 입력하세요.");
+				return;
+			}
+			
+			$.ajax({
+				type : "PUT",
+				url : "update/" + reply_No,
+				headers : {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "PUT"
+				},
+				dataType : "text",
+				data : JSON.stringify({
+					reply_Text : reply_Text
+				}),
+				success : function(result){
+					console.log("result : " + result);
+					if(result=="modSuccess"){
+						alert("댓글이 수정되었습니다.");
+						getReplies();
+						getReplyCount();
+						$("#modModal").modal("hide");
+						reply_TextObj.val("");
+					}
+				}
+			});
+		});
+		
+		$(".ModalDelBtn").on("click",function(){
+			var reply_No = $(".reply_No").val();
+			$.ajax({
+				type : "DELETE",
+				url : "delete/" + reply_No,
+				headers : {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "DELETE"
+				},
+				dataType : "text",
+				success : function(result){
+					console.log("result : " + result);
+					if(result=="delSuccess"){
+						alert("댓글이 삭제되었습니다.");
+						getReplies();
+						getReplyCount();
+						$("#delModal").modal("hide");
+					}
+				}
+			});
+		});
+		
 	});
 </script>
+
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		var formObj = $("form[role='form']");

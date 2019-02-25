@@ -82,7 +82,7 @@ public class BoardController {
 		boardService.update(boardVO);
 		
 		redirectAttributes.addFlashAttribute("msg", "modSucces");
-		return "redirect:/read.do?board_No="+boardVO.getboard_No();
+		return "redirect:/read.do?board_No="+boardVO.getBoard_No();
 		
 	}
 	
