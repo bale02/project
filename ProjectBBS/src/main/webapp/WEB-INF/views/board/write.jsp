@@ -3,7 +3,13 @@
 <html>
 
 <%@ include file="../include/head.jsp"%>
-
+<style>
+	.fileDrop{
+		width: 100%;
+		height: 200px;
+		border: 2px dotted #0b58a2;
+	}
+</style>
 <body class="hold-transition skin-blue sidebar-mini layout-boxed">
 
 <div class="wrapper">
@@ -48,7 +54,22 @@
 								<label for="writer">작성자</label>
 								<input class="form-control" id="writer" name="writer">
 							</div>
+							<%-- 첨부파일 --%>
+			                <div class="form-group">
+			                    <div class="fileDrop">
+			                        <br/>
+			                        <br/>
+			                        <br/>
+			                        <br/>
+			                        <p class="text-center"><i class="fa fa-paperclip"></i> 첨부파일을 드래그해주세요.</p>
+			                    </div>
+			                </div>
 						</div>
+               			 <%--첨부파일 영역 추가--%>
+			            </div>
+			            <div class="box-footer">
+			                <ul class="mailbox-attachments clearfix uploadedFileList"></ul>
+			            </div>
 						<div class="box-footer">
 							<button type="button" class="btn btn-primary" onclick="location.href='listCriteria.do'"><i class="fa fa-list"> 목록</i></button>
 							<div class="pull-right">
@@ -56,7 +77,6 @@
 								<button type="reset" class="btn btn-warning"><i class="fa fa-reply"> 초기화</i></button>
 							</div>
 						</div>
-					</div>
 				</form>
 			</div>
         </section>
@@ -71,7 +91,47 @@
 <!-- ./wrapper -->
 
 <%@ include file="../include/plugin_js.jsp"%>
+<script id="fileTemplate" type="text/x-handlebars-template">
+    <li>
+        <span class="mailbox-attachment-icon has-img">
+            <img src="{{imgSrc}}" alt="Attachment">
+        </span>
+        <div class="mailbox-attachment-info">
+            <a href="{{originalFileUrl}}" class="mailbox-attachment-name">
+                <i class="fa fa-paperclip"></i> {{originalFileName}}
+            </a>
+            <a href="{{fullName}}" class="btn btn-default btn-xs pull-right delBtn">
+                <i class="fa fa-fw fa-remove"></i>
+            </a>
+        </div>
+    </li>
+</script>
+<script id="fileTemplate" type="text/x-handlebars-template">
+    <li data-src="{{fullName}}">
+        <span class="mailbox-attachment-icon has-img">
+            <img src="{{imgSrc}}" alt="Attachment">
+        </span>
+        <div class="mailbox-attachment-info">
+            <a href="{{originalFileUrl}}" class="mailbox-attachment-name">
+                <i class="fa fa-paperclip"></i> {{originalFileName}}
+            </a>
+        </div>
+    </li>
+</script>
 
+<script type="text/javascript">
+	$("#writeForm").submit(function(event){
+		event.preventDefault();
+		var that = $(this);
+		filesSubmit(that);
+	});
+	
+	$(document).on("click",".delBtn",function(event){
+		event.preventDefault();
+		var that = $(this);
+		deleteFileWrtPage(that);
+	});
+</script>
 </body>
 
 </html>

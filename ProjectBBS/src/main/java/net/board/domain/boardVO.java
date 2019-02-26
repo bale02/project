@@ -11,6 +11,9 @@ public class boardVO {
 	private int viewcnt;
 	private int reply_Cnt;
 	
+	private String[] files;
+	private int file_Cnt;
+	
 	public int getBoard_No() {
 		return board_No;
 	}
@@ -52,6 +55,19 @@ public class boardVO {
 	}
 	public void setReply_Cnt(int reply_Cnt) {
 		this.reply_Cnt = reply_Cnt;
+	}
+	public String[] getFiles() {
+		return files;
+	}
+	public void setFiles(String[] files) {
+		this.files = files;
+		setFile_Cnt(files.length);
+	}
+	public int getFile_Cnt() {
+		return file_Cnt;
+	}
+	public void setFile_Cnt(int file_Cnt) {
+		this.file_Cnt = file_Cnt;
 	}
 	
 	

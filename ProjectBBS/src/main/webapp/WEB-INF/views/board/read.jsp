@@ -37,6 +37,10 @@
 				<div class="box-body" style="height: 600px">
 					${board.content}
 				</div>
+				<%--업로드 파일 영역 --%>
+				<div class="box-footer uploadFiles">
+					<ul class="mailbox-attachment clearfix uploadedFileList"></ul>
+				</div>
 				<div class="box-footer">
 					<div class="user-block">
 						<img class="img-circle img-bordered-sm" src="../dist/img/user1-128x128.jpg" alt="user image">
@@ -183,7 +187,9 @@
 $(document).ready(function () {
 
     var board_No = "${board.board_No }";  // 현재 게시글 번호
-   
+   	
+    getFiles(board_No);
+    
     // 댓글 내용 : 줄바꿈/공백처리
     Handlebars.registerHelper("escape", function (replyText) {
         var text = Handlebars.Utils.escapeExpression(replyText);
@@ -219,26 +225,26 @@ $(document).ready(function () {
     }
     getReplyCount();
 
- 		function getReplyCount(){
-			$.getJSON("count/"+board_No,function(data){
-			
-			var repliesCount = data.repliesCount; 
-			var replyCount = $(".replyCount");
-			var collapsedBox = $(".collapsed-box");
-			
-			if(repliesCount ===0){
-				replyCount.html(" 댓글이 없습니다.");
-				collapsedBox.find(".btn-box-tool").remove();
-				return;
-			}else{
-			replyCount.html(' 댓글목록 ('+repliesCount+')');
-			collapsedBox.find(".box-tools").html(
-				"<button type='button' class='btn btn-box-tool' data-widget='collapse'>"
-				+ "<i class='fa fa-plus'></i>"
-				+ "</button>"
+	function getReplyCount(){
+		$.getJSON("count/"+board_No,function(data){
+		
+		var repliesCount = data.repliesCount; 
+		var replyCount = $(".replyCount");
+		var collapsedBox = $(".collapsed-box");
+		
+		if(repliesCount ===0){
+			replyCount.html(" 댓글이 없습니다.");
+			collapsedBox.find(".btn-box-tool").remove();
+			return;
+		}else{
+		replyCount.html(' 댓글목록 ('+repliesCount+')');
+		collapsedBox.find(".box-tools").html(
+			"<button type='button' class='btn btn-box-tool' data-widget='collapse'>"
+			+ "<i class='fa fa-plus'></i>"
+			+ "</button>"
 			)};
 		})
-		}
+	}
 
 
     // 댓글 목록 출력 함수
@@ -255,6 +261,10 @@ $(document).ready(function () {
 			var replyWriter = replyWriterObj.val();
 			var replyText = replyTextObj.val();
 			
+			if(replyText == null || replyText == ""){
+				alert("댓글을 입력하세요.");
+				return;
+			}
             $.ajax({
                 type: "post",
                 url: "replies/",
@@ -348,13 +358,6 @@ $(document).ready(function () {
 				}
 			});
 		});
-		
-	});
-</script>
-
-
-<script type="text/javascript">
-	$(document).ready(function(){
 		var formObj = $("form[role='form']");
 		console.log(formObj);
 		
@@ -367,12 +370,27 @@ $(document).ready(function () {
 			self.location="listCriteria.do";
 		});
 		$(".delBtn").on("click",function(){
+			var replyCnt =$(".replyDiv").length;
+			if(replyCnt>0){
+				alert("댓글이 있는 글은 삭제할 수 없습니다.");
+				return;
+			}
+			var arr = [];
+			$(".uploadedFileList li").each(function(){
+				arr.push($(this).attr("data-src"));
+			});
+			
+			if(arr.length>0){
+				$.post("file_DeleteAll", {files: arr}, function () {
+					
+				});
+			}
+			
 			formObj.attr("action","delete.do");
 			formObj.attr("method","GET");
 			formObj.submit();
 		});
 	});
-	
 </script>
 
 </body>

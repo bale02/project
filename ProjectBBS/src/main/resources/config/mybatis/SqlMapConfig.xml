@@ -6,10 +6,12 @@
 	<typeAliases>
 	   <typeAlias alias="boardVO" type="net.board.domain.boardVO"/>
 	   <typeAlias alias="replyVO" type="net.reply.domain.replyVO"/>
+	   <typeAlias alias="boardFileVO" type="net.board.domain.boardFileVO"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/board/boardMapper.xml"/>
 		<mapper resource="mappers/reply/replyMapper.xml"/>
+		<mapper resource="mappers/upload/boardFileMapper.xml"/>
 	</mappers>
 </configuration>

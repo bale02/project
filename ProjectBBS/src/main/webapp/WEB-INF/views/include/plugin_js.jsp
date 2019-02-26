@@ -14,6 +14,8 @@
 <script src="resources/bower_components/fileupload/js/jasny-bootstrap.min.js"></script>
 <%--lightbox--%>
 <script src="resources/bower_components/lightbox/js/lightbox.js"></script>
+
+<script src="resources/dist/js/board_file_upload.js"></script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
 Both of these plugins are recommended to enhance the
 user experience. -->
