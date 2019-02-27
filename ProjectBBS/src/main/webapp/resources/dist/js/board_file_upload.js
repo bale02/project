@@ -86,6 +86,11 @@ function deleteFileWrtPage(that) {
     deleteFile(url, that);
 }
 
+function deleteFileModPage(that,board_No){
+	var url = "file_Delete" + board_No;
+	deleteFile(url,that);
+}
+
 // 파일 삭제 AJAX 통신
 function deleteFile(url, that) {
     $.ajax({

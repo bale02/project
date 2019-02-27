@@ -51,7 +51,7 @@ public class UploadFileUtils {
 	}
 	
 	// 파일 삭제 처리 
-	public static void deleteFIle(String fileName, HttpServletRequest request) {
+	public static void deleteFile(String fileName, HttpServletRequest request) {
 		
 		String rootPath = getRootPath(fileName, request); //기본경로 추출
 		

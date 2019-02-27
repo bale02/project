@@ -27,4 +27,12 @@ public class boardFileServiceImpl implements boardFileService{
 		return boardFileDAO.getBoardFiles(board_No);
 	}
 
+	@Override
+	public void deleteFile(String fileName, Integer board_No) throws Exception {
+		// TODO Auto-generated method stub
+		boardFileDAO.deleteFile(fileName);
+		boardFileDAO.updateFileCnt(board_No);
+		
+	}
+
 }

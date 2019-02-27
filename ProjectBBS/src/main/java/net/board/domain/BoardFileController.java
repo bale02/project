@@ -67,7 +67,23 @@ public class BoardFileController {
 		ResponseEntity<String> entity = null;
 		
 		try {
-			UploadFileUtils.deleteFIle(fileName, request);
+			UploadFileUtils.deleteFile(fileName, request);
+			entity = new ResponseEntity<String>("DELETED",HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity= new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value="/file_Delete/{board_No}",method= RequestMethod.POST)
+	public ResponseEntity<String> deleteFile(@PathVariable("board_No") Integer board_No,
+												String fileName,HttpServletRequest request){
+		ResponseEntity<String> entity = null;
+		
+		try {
+			UploadFileUtils.deleteFile(fileName, request);
+			boardFileService.deleteFile(fileName,board_No);
 			entity = new ResponseEntity<String>("DELETED",HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -97,7 +113,7 @@ public class BoardFileController {
 		ResponseEntity<String> entity =null;
 		try {
 			for(String fileName : files) {
-				UploadFileUtils.deleteFIle(fileName, request);
+				UploadFileUtils.deleteFile(fileName, request);
 			}
 			entity = new ResponseEntity<String>("DELETED",HttpStatus.OK);
 		}catch(Exception e) {

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="net.mappers.user.userMapper">
+	<insert id="register">
+		insert into board_user(user_id,user_pw,user_name,user_email,session_key,session_limit,user_img,user_join_date,user_login_date) 
+			values (#{user_Id},#{user_Pw},#{user_Name},#{user_Email},'none',sysdate,'user/default-user.png',sysdate,sysdate)
+	</insert>
+</mapper>

@@ -7,11 +7,13 @@
 	   <typeAlias alias="boardVO" type="net.board.domain.boardVO"/>
 	   <typeAlias alias="replyVO" type="net.reply.domain.replyVO"/>
 	   <typeAlias alias="boardFileVO" type="net.board.domain.boardFileVO"/>
+	   <typeAlias alias="userVO" type="net.user.domain.userVO"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/board/boardMapper.xml"/>
 		<mapper resource="mappers/reply/replyMapper.xml"/>
 		<mapper resource="mappers/upload/boardFileMapper.xml"/>
+		<mapper resource="mappers/user/userMapper.xml"/>
 	</mappers>
 </configuration>
