@@ -9,4 +9,17 @@
 		insert into board_user(user_id,user_pw,user_name,user_email,session_key,session_limit,user_img,user_join_date,user_login_date) 
 			values (#{user_Id},#{user_Pw},#{user_Name},#{user_Email},'none',sysdate,'user/default-user.png',sysdate,sysdate)
 	</insert>
+
+    <select id="login" resultType="userVO">
+        select * from board_user where user_id = #{user_Id}
+    </select>
+
+    <update id="keepLogin">
+        update board_user set session_key = #{session_Id},session_limit = #{session_Limit} where user_Id = #{user_Id}
+    </update>
+    
+    <select id="checkUserWithSessionKey" resultType="userVO">
+        select * from board_user where session_key = #{value}
+    </select>
+
 </mapper>

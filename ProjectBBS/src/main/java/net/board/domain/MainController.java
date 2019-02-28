@@ -10,9 +10,4 @@ public class MainController {
 	public String dashBaord(){
 		return "/main/main";
 	}
-	
-	@RequestMapping("/register.do")
-	public String register() {
-		return "/main/register";
-	}
 }

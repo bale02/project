@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-import net.board.domain.boardFileVO;
 import net.board.domain.boardVO;
 import net.board.persistence.boardDAO;
 import net.board.persistence.boardFileDAO;

@@ -52,7 +52,7 @@
 							</div>
 							<div class="form-group">
 								<label for="writer">작성자</label>
-								<input class="form-control" id="writer" name="writer">
+								<input class="form-control" id="writer" name="writer" value="${login.user_Id}" readonly>
 							</div>
 							<%-- 첨부파일 --%>
 			                <div class="form-group">

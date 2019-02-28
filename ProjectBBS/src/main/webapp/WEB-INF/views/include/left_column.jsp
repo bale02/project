@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <aside class="main-sidebar">
 
@@ -22,7 +21,7 @@
                     <img src="/${login.userImg}" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p>${login.userName}</p>
+                    <p>${login.user_Name}</p>
                         <%-- Status --%>
                     <a href="#"><i class="fa fa-circle text-success"></i> ONLINE</a>
                 </div>
@@ -77,8 +76,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="${path}/paging/write"><i class="fa fa-pencil"></i> 게시글 쓰기</a></li>
-                    <li><a href="${path}/paging/list"><i class="fa fa-list"></i> 게시글 목록</a></li>
+                    <li><a href="${path}/article/paging/write"><i class="fa fa-pencil"></i> 게시글 쓰기</a></li>
+                    <li><a href="${path}/article/paging/list"><i class="fa fa-list"></i> 게시글 목록</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -88,8 +87,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="${path}/paging/search/write"><i class="fa fa-pencil"></i> 게시글 쓰기</a></li>
-                    <li><a href="${path}/paging/search/list"><i class="fa fa-list"></i> 게시글 목록</a></li>
+                    <li><a href="${path}/article/paging/search/write"><i class="fa fa-pencil"></i> 게시글 쓰기</a></li>
+                    <li><a href="${path}/article/paging/search/list"><i class="fa fa-list"></i> 게시글 목록</a></li>
                 </ul>
             </li>
 

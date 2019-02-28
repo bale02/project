@@ -33,10 +33,10 @@ public class userRegisterController {
 	public String registerPOST(userVO userVO,RedirectAttributes redirectAttributes) throws Exception{
 		String hashedPw = BCrypt.hashpw(userVO.getUser_Pw(),BCrypt.gensalt());
 		userVO.setUser_Pw(hashedPw);
+		userService.register(userVO);
 		redirectAttributes.addAttribute("msg","REGISTERED");
 		
-		return "redirect:/login.do";
+		return "redirect:/login";
 	}
-	
 	
 }

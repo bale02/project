@@ -46,7 +46,7 @@ public class BoardController {
 		logger.info(boardVO.toString());
 		boardService.create(boardVO);
 		redirectAttributes.addFlashAttribute("msg", "regSuccess");
-		return "redirect:/list.do";
+		return "redirect:/listCriteria.do";
 	}
 	
 	// 리스트 조회
@@ -63,7 +63,7 @@ public class BoardController {
 	public String read(@RequestParam("board_No") int board_No,Model model) throws Exception{
 		logger.info("read..");
 		model.addAttribute("board",boardService.read(board_No));
-		return "board/read";
+		return "/board/read";
 	}
 	
 	// 게시글 수정 페이지 이동

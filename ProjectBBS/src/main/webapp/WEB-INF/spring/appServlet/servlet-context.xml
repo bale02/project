@@ -31,7 +31,44 @@
     	<beans:property name="maxUploadSize" value="10485760"></beans:property>          
     </beans:bean>
 	
+	<beans:bean id="loginInterceptor" class="net.commons.interceptor.loginInterceptor"/>
 	
+	<interceptors>
+		<interceptor>
+			<mapping path="/loginPost.do"/>
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
+	<beans:bean id="authInterceptor" class="net.commons.interceptor.authInterceptor"/>
+	
+ 	<interceptors>
+		<interceptor>
+			<mapping path="/write.do"/>
+			<mapping path="/modify.do"/>
+			<mapping path="/delete.do"/>
+			<mapping path="/info.do"/>
+			<beans:ref bean="authInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
+	<beans:bean id = "cookieInterceptor" class="net.commons.interceptor.cookieInterceptor"/>
+	<interceptors>
+		<interceptor>
+			<mapping path="/**/"/>
+			<beans:ref bean="cookieInterceptor"/>
+		</interceptor>
+	</interceptors>
+	 
+	<beans:bean id="loginAfterInterceptor" class="net.commons.interceptor.loginAfterInterceptor"/>
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/login.do"/>
+			<mapping path="/register.do"/>
+			<beans:ref bean="loginAfterInterceptor"/>
+		</interceptor>
+	</interceptors>
 	<context:component-scan base-package="net.*" />
 	
 	<aop:aspectj-autoproxy/>

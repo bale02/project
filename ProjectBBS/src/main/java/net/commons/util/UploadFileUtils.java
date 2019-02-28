@@ -3,8 +3,6 @@ package net.commons.util;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.UUID;
@@ -17,8 +15,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
-
-import oracle.net.aso.f;
 
 public class UploadFileUtils {
 	public static String uploadFile(MultipartFile file, HttpServletRequest request) throws Exception{
@@ -80,7 +76,7 @@ public class UploadFileUtils {
 		}
 		
 		fileName = fileName.substring(fileName.indexOf("_")+1); // UUID 제거 
-		httpHeaders.setContentType(mediaType.APPLICATION_OCTET_STREAM); // 다운로드 Mime 타임 설정 
+		httpHeaders.setContentType(MediaType.APPLICATION_OCTET_STREAM); // 다운로드 Mime 타임 설정 
 		// 파일명 한글 인코딩 처리 
 		httpHeaders.add("Content-Disposition",
 				"attachment; filename=\""+new String(fileName.getBytes("UTF-8"),

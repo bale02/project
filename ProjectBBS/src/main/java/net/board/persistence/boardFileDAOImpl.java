@@ -45,7 +45,7 @@ public class boardFileDAOImpl implements boardFileDAO {
 	@Override
 	public void replaceFile(String fileName, Integer board_No) throws Exception {
 		// TODO Auto-generated method stub
-		Map<String,Object> paramMap = new HashMap<>();
+		Map<String,Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("fileName",fileName);
 		paramMap.put("board_No",board_No);
 		sqlSession.insert(NAMESPACE+".replaceFile",paramMap);

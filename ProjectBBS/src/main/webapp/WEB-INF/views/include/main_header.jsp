@@ -22,14 +22,14 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="/${login.userImg}" class="user-image" alt="User Image">
-                            <span class="hidden-xs">${login.userName}</span>
+                            <span class="hidden-xs">${login.user_Name}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">
                                 <img src="/${login.userImg}" class="img-circle" alt="User Image">
-                                <p>${login.userName}
+                                <p>${login.user_Name}
                                     <small>
-                                        가입일자 : <fmt:formatDate value="${login.userJoinDate}" pattern="yyyy-MM-dd"/>
+                                        가입일자 : <fmt:formatDate value="${login.user_Join_Date}" pattern="yyyy-MM-dd"/>
                                     </small>
                                 </p>
                             </li>
@@ -52,7 +52,7 @@
                                             class="fa fa-info-circle"></i><b> 내 프로필</b></a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="${path}/user/logout" class="btn btn-default btn-flat"><i
+                                    <a href="logout" class="btn btn-default btn-flat"><i
                                             class="glyphicon glyphicon-log-out"></i><b> 로그아웃</b></a>
                                 </div>
                             </li>
@@ -62,7 +62,7 @@
                 <c:if test="${empty login}">
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="${path}/user/default-user.png" class="user-image" alt="User Image">
+                            <img src="resources/dist/img/default-user.png" class="user-image" alt="User Image">
                             <span class="hidden-xs">회원가입 또는 로그인</span>
                         </a>
                         <ul class="dropdown-menu">
@@ -75,11 +75,11 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="${path}/user/register" class="btn btn-default btn-flat"><i
+                                    <a href="register.do" class="btn btn-default btn-flat"><i
                                             class="fa fa-user-plus"></i><b> 회원가입</b></a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="${path}/user/login" class="btn btn-default btn-flat"><i
+                                    <a href="login.do" class="btn btn-default btn-flat"><i
                                             class="glyphicon glyphicon-log-in"></i><b> 로그인</b></a>
                                 </div>
                             </li>

@@ -55,10 +55,12 @@
 						<input type="hidden" name="board_No" value="${board.board_No}">
 					</form>
 					<button type="submit" class="btn btn-primary listBtn" ><i class="fa fa-list"></i> 목록</button>
-					<div class="pull-right">
-						<button type="submit" class="btn btn-warning modBtn" ><i class="fa fa-edit"></i> 수정</button>
-						<button type="submit" class="btn btn-danger delBtn" ><i class="fa fa-trash" ></i> 삭제</button>
-					</div>
+					<c:if test="${login.user_Id == board.writer }">
+						<div class="pull-right">
+							<button type="submit" class="btn btn-warning modBtn" ><i class="fa fa-edit"></i> 수정</button>
+							<button type="submit" class="btn btn-danger delBtn" ><i class="fa fa-trash" ></i> 삭제</button>
+						</div>
+					</c:if>
 				</div> 
 			
 			
@@ -67,20 +69,27 @@
 						<a class="link-black text-lg"><i class="fa fa-pencil"></i> 댓글작성</a>
 					</div>
 					<div class="box-body">
-						<form class="form-horizontal">
-							<div class="form-group margin">
-								<div class="col-sm-10">
-									<textarea class="form-control" id="newReplyText" rows="3" placeholder="댓글 내용 입력" style="resize:none"></textarea>
+						<c:if test="${not empty login}">
+							<form class="form-horizontal">
+								<div class="form-group margin">
+									<div class="col-sm-10">
+										<textarea class="form-control" id="newReplyText" rows="3" placeholder="댓글 내용 입력" style="resize:none"></textarea>
+									</div>
+									<div class="col-sm-2">
+										<input class="form-control" id="newReplyWriter" type="text" value="${login.user_Id}" readonly>
+									</div>
+									<hr/>
+									<div class="col-sm-2">
+										<button type="button" class="btn btn-primary btn-block replyAddBtn"><i class="fa fa-save"></i> 저장</button>
+									</div>
 								</div>
-								<div class="col-sm-2">
-									<input class="form-control" id="newReplyWriter" type="text" placeholder="댓글 작성자..">
-								</div>
-								<hr/>
-								<div class="col-sm-2">
-									<button type="button" class="btn btn-primary btn-block replyAddBtn"><i class="fa fa-save"></i> 저장</button>
-								</div>
-							</div>
-						</form>
+							</form>
+						</c:if>
+						<c:if test="${empty login}">
+							<a href="login" class="btn btn-default btn-block" role="button">
+								<i class="fa fa-edit"></i>로그인 한 사용자만 작성 가능합니다.
+							</a>
+						</c:if>
 					</div>
 				</div>
 				<div class="box box-success collapsed-box">
@@ -165,6 +174,7 @@
             <span class="username">
                 <%--작성자 이름--%>
                 <a href="#">{{reply_Writer}}</a>
+				{{#eqReplyWriter reply_Writer}}
                 <%--댓글 삭제 버튼--%>
                 <a href="#" class="pull-right btn-box-tool replyDelBtn" data-toggle="modal" data-target="#delModal">
                     <i class="fa fa-times"> 삭제</i>
@@ -173,6 +183,7 @@
                 <a href="#" class="pull-right btn-box-tool replyModBtn" data-toggle="modal" data-target="#modModal">
                     <i class="fa fa-edit"> 수정</i>
                 </a>
+				{{/eqReplyWriter}}
             </span>
             <%--댓글 작성일자--%>
             <span class="description">{{prettifyDate regDate}}</span>
@@ -185,7 +196,15 @@
 </script>
 <script>
 $(document).ready(function () {
-
+	
+    Handlebars.registerHelper("eqReplyWriter", function (reply_Writer, block) {
+        var accum = "";
+        if (reply_Writer === "${login.user_Id}") {
+            accum += block.fn();
+        }
+        return accum;
+    });
+	
     var board_No = "${board.board_No }";  // 현재 게시글 번호
    	
     getFiles(board_No);
