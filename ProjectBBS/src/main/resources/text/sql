@@ -1,0 +1,13 @@
+create table board_user(
+	user_id varchar2(50) not null,
+	user_pw varchar2(100) not null,
+	user_name varchar2(100) not null,
+	user_email varchar2(100) not null,
+	session_key varchar(50) not null,
+	session_limit date,
+	user_img varchar(100) not null, 
+	user_join_date date not null,
+	user_login_date date not null,
+	primary key (user_id)
+);
+

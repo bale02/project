@@ -3,7 +3,13 @@
 <html>
 
 <%@ include file="../include/head.jsp"%>
-
+<style>
+	.fileDrop{
+		width: 100%;
+		height: 200px;
+		border: 2px dotted #0b58a2;
+	}
+</style>
 <body class="hold-transition skin-blue sidebar-mini layout-boxed">
 
 <div class="wrapper">
@@ -49,6 +55,15 @@
 								<label for="writer">작성자</label>
 								<input class="form-control" id="writer" name="writer" value="${board.writer}" readonly>
 							</div>
+							<div class="form-group">
+								<div class="fileDrop">
+									<br/>
+									<br/>
+									<br/>
+									<br/>
+									<p class="text-center"><i class="fa fa-paperclip"></i> 첨부파일을 드래그해주세요.</p>
+								</div>
+							</div>
 						</div>
 						<div class="box-footer">
 							<button type="button" class="btn btn-primary listBtn"><i class="fa fa-list"> 목록</i></button>
@@ -73,8 +88,42 @@
 
 <%@ include file="../include/plugin_js.jsp"%>
 
+<script id="fileTemplate" type="text/x-handlebars-template">
+    <li>
+        <span class="mailbox-attachment-icon has-img">
+            <img src="{{imgSrc}}" alt="Attachment">
+        </span>
+        <div class="mailbox-attachment-info">
+            <a href="{{originalFileUrl}}" class="mailbox-attachment-name">
+                <i class="fa fa-paperclip"></i> {{originalFileName}}
+            </a>
+            <a href="{{fullName}}" class="btn btn-default btn-xs pull-right delBtn">
+                <i class="fa fa-fw fa-remove"></i>
+            </a>
+        </div>
+    </li>
+</script>
+
 <script type="text/javascript">
 	$(document).ready(function(){
+		
+		var board_No = ${board.board_No};
+		
+		$(document).on("click",".delBtn", function(event){
+			event.preventDefault();
+			if(confirm("삭제하시겠습니까?")){
+				var that = $(this);
+				deleteFileModPage(that,board_No);
+			}
+		});
+		
+		getFiles(board_No);
+		
+		$("#modifyForm").submit(function(event){
+			event.preventDefault();
+			var that = $(this);
+			filesSubmit(that);
+		});
 		
 		var formObj = $("form[role='form']");
 		console.log(formObj);

@@ -163,8 +163,12 @@
 		</dependency>
 
 		<!-- oracle 10g -->
-
-
+		<dependency>
+			<groupId>org.mindrot</groupId>
+			<artifactId>jbcrypt</artifactId>
+			<version>0.4</version>
+		</dependency>
+		
 		<!-- fileupload -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -276,6 +280,8 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	
 
 	<!-- 3class young -->
 	<repositories>
