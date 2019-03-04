@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +48,23 @@ public class userServiceImpl implements userService{
 		return userDAO.checkUserWithSessionKey(value);
 	}
 	
-	
+	@Override
+    public boolean isValidUserPw(String userId, String userPw) throws Exception {
+        String hashedUserPw = userDAO.getuserPw(userId);
+
+        return BCrypt.checkpw(userPw, hashedUserPw);
+    }
+
+    @Override
+    public void userInfoModify(userVO userVO) throws Exception {
+        userDAO.userInfoUpdate(userVO);
+    }
+
+    @Override
+    public void userPwModify(String userId, String newUserPw) throws Exception {
+        userDAO.userPwUpdate(userId, newUserPw);
+    }
+
 	
 	
 }

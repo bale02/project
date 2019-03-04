@@ -59,7 +59,24 @@ public class userDAOImpl implements userDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(NAMESPACE + ".checkUserWithSessionKey",value);
 	}
-	
-	
+
+    @Override
+    public String getUserPw(String userId) throws Exception {
+
+        return sqlSession.selectOne(NAMESPACE + ".getUserPw", user_Id);
+    }
+
+    @Override
+    public void userInfoUpdate(userVO userVO) throws Exception {
+        sqlSession.update(NAMESPACE + ".userInfoUpdate", userVO);
+    }
+
+    @Override
+    public void userPwUpdate(String userId, String newUserPw) throws Exception {
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("user_Id", userId);
+        paramMap.put("newUser_Pw", newUserPw);
+        sqlSession.update(NAMESPACE + ".userPwUpdate", paramMap);
+    }
 	
 }
