@@ -305,7 +305,6 @@ $(document).ready(function () {
                         getReplies(); // 댓글 목록 호출
                         getReplyCount();
                         replyTextObj.val("");   // 댓글 입력창 공백처리
-                        replyWriterObj.val("");   // 댓글 입력창 공백처리
                     }
                 },
                 error: function(){

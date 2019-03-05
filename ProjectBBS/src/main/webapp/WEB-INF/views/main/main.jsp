@@ -31,8 +31,8 @@
         <!-- Main content -->
         <section class="content container-fluid">
 			<form id="chatForm">
-				<input type="text" id="message"/>
-				<button>send</button>
+				<input class="form-control" type="text" id="message"/> <br/>
+				<button class="btn btn-default pull-right"><i class="fa fa-wechat"></i> 입력</button>
 			</form>
 			<div id="chat"></div>
 			<script>
