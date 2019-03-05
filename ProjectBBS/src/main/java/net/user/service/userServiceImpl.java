@@ -50,7 +50,7 @@ public class userServiceImpl implements userService{
 	
 	@Override
     public boolean isValidUserPw(String userId, String userPw) throws Exception {
-        String hashedUserPw = userDAO.getuserPw(userId);
+        String hashedUserPw = userDAO.getUserPw(userId);
 
         return BCrypt.checkpw(userPw, hashedUserPw);
     }

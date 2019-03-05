@@ -3,6 +3,8 @@
 <html>
 
 <%@ include file="../include/head.jsp"%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="resources/dist/js/sockjs.js"></script>
 
 <body class="hold-transition skin-blue sidebar-mini layout-boxed">
 
@@ -19,7 +21,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                메인페이지
+                채팅창
             </h1>
             <ol class="breadcrumb">
                 <li><a href="${path}/"><i class="fa fa-dashboard"></i> home</a></li>
@@ -28,9 +30,31 @@
 
         <!-- Main content -->
         <section class="content container-fluid">
-
-            <p>메인페이지입니다....</p>
-
+			<form id="chatForm">
+				<input type="text" id="message"/>
+				<button>send</button>
+			</form>
+			<div id="chat"></div>
+			<script>
+				$(document).ready(function(){
+					$("#chatForm").submit(function(event){
+						event.preventDefault();
+						sock.send($("#message").val());
+						$("#message").val('').focus();
+					});
+				});
+				
+				var sock = new SockJS("/echo");
+				sock.onmessage = function(e){
+					$("#chat").append(e.data + "<br/>");
+				}
+				
+				sock.onclose = function(){
+					$("#chat").append("연결 종료");
+				}
+			
+			</script>
+			
         </section>
         <!-- /.content -->
     </div>

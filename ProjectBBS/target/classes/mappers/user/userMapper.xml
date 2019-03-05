@@ -22,4 +22,16 @@
         select * from board_user where session_key = #{value}
     </select>
 
+	<select id="getUserPw" resultType="string">
+		select * from user_pw from where user_id = #{user_Id}
+	</select>
+	
+	<update id="userInfoUpdate">
+		update board_user set user_name = #{user_Name}, user_email = #{user_Email},
+			where user_Id = #{user_Id}
+	</update>
+	
+	<update id="userPwUpdate">
+		update board_user set user_pw = #{newUser_Pw} where user_id = #{user_Id}
+	</update>
 </mapper>

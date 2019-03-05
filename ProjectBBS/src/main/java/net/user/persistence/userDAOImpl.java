@@ -61,7 +61,7 @@ public class userDAOImpl implements userDAO{
 	}
 
     @Override
-    public String getUserPw(String userId) throws Exception {
+    public String getUserPw(String user_Id) throws Exception {
 
         return sqlSession.selectOne(NAMESPACE + ".getUserPw", user_Id);
     }
@@ -73,7 +73,7 @@ public class userDAOImpl implements userDAO{
 
     @Override
     public void userPwUpdate(String userId, String newUserPw) throws Exception {
-        Map<String, Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("user_Id", userId);
         paramMap.put("newUser_Pw", newUserPw);
         sqlSession.update(NAMESPACE + ".userPwUpdate", paramMap);
