@@ -22,4 +22,6 @@ public interface userDAO {
 
     // 회원 비밀번호 수정
     void userPwUpdate(String userId, String newUserPw) throws Exception;
+    
+    void userLoginDate(String user_Id) throws Exception;
 }

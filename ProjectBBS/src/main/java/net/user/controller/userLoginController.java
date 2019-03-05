@@ -39,6 +39,7 @@ public class userLoginController {
 	
 	@RequestMapping(value = "/loginPost.do",method=RequestMethod.POST)
 	public String loginPOST(loginDTO loginDTO,HttpSession httpSession, Model model) throws Exception{
+		userService.userLoginDate(loginDTO.getUser_Id());
 		userVO userVO = userService.login(loginDTO);
 		if(userVO == null || !BCrypt.checkpw(loginDTO.getUser_Pw(), userVO.getUser_Pw())) {
 			return "/user/loginPost";

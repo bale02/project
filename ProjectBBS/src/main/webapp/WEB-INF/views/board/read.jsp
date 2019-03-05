@@ -86,7 +86,7 @@
 							</form>
 						</c:if>
 						<c:if test="${empty login}">
-							<a href="login" class="btn btn-default btn-block" role="button">
+							<a href="login.do" class="btn btn-default btn-block" role="button">
 								<i class="fa fa-edit"></i>로그인 한 사용자만 작성 가능합니다.
 							</a>
 						</c:if>

@@ -65,6 +65,12 @@ public class userServiceImpl implements userService{
         userDAO.userPwUpdate(userId, newUserPw);
     }
 
+	@Override
+	public void userLoginDate(String user_Id) throws Exception {
+		// TODO Auto-generated method stub
+		userDAO.userLoginDate(user_Id);
+	}
+
 	
 	
 }

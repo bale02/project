@@ -14,6 +14,10 @@
         select * from board_user where user_id = #{user_Id}
     </select>
 
+    <update id="loginDate">
+        update board_user set user_login_date = sysdate where user_id=#{user_Id}
+    </update>
+
     <update id="keepLogin">
         update board_user set session_key = #{session_Id},session_limit = #{session_Limit} where user_Id = #{user_Id}
     </update>
