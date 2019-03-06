@@ -23,7 +23,7 @@ public class userInfoContoroller {
 	
 	// 회원정보 페이지 
 	
-	@RequestMapping(value="/info",method=RequestMethod.GET)
+	@RequestMapping(value="/info")
 	public String userInfo() throws Exception{
 		return "/user/info";
 	}
@@ -35,12 +35,12 @@ public class userInfoContoroller {
         boolean userPwValid = userService.isValidUserPw(userVO.getUser_Id(), userVO.getUser_Pw());
         if (!userPwValid) {
             redirectAttributes.addFlashAttribute("msg", "INVALID userPw");
-            return "redirect:/user/info";
+            return "redirect:/info";
         }
         userService.userInfoModify(userVO);
         httpSession.setAttribute("login", userVO);
         redirectAttributes.addFlashAttribute("msg", "MODIFIED userInfo");
-        return "redirect:/user/info";
+        return "redirect:/info";
     }
 
     // 회원 비밀번호 변경
@@ -50,13 +50,13 @@ public class userInfoContoroller {
         // 비밀번호 일치 확인
         if (!userService.isValidUserPw(userId, oldUserPw)) {
             redirectAttributes.addFlashAttribute("msg", "INVALID userPw");
-            return "redirect:/user/info";
+            return "redirect:/info";
         }
 
         // 새로운 비밀번호 == 현재 비밀번호
         if (userService.isValidUserPw(userId, newUserPw)) {
             redirectAttributes.addFlashAttribute("msg", "SAME userPw");
-            return "redirect:/user/info";
+            return "redirect:/info";
         }
 
         // 새로운 비밀번호 암호화 처리, 변경
@@ -64,8 +64,8 @@ public class userInfoContoroller {
         userService.userPwModify(userId, hashedPw);
         redirectAttributes.addFlashAttribute("msg", "MODIFIED userPw");
 
-        return "redirect:/user/info";
+        return "redirect:/info";
     }
 
 }
-}
+

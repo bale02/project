@@ -36,7 +36,7 @@ public class userRegisterController {
 		userService.register(userVO);
 		redirectAttributes.addAttribute("msg","REGISTERED");
 		
-		return "redirect:/login";
+		return "redirect:/login.do";
 	}
 	
 }

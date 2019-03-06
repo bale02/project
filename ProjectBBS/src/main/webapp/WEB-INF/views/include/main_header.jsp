@@ -33,22 +33,9 @@
                                     </small>
                                 </p>
                             </li>
-                            <li class="user-body">
-                                <div class="row">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">게시글</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">추천글</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">북마크</a>
-                                    </div>
-                                </div>
-                            </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="${path}/user/info" class="btn btn-default btn-flat"><i
+                                    <a href="info" class="btn btn-default btn-flat"><i
                                             class="fa fa-info-circle"></i><b> 내 프로필</b></a>
                                 </div>
                                 <div class="pull-right">
