@@ -86,7 +86,7 @@
 							</form>
 						</c:if>
 						<c:if test="${empty login}">
-							<a href="login" class="btn btn-default btn-block" role="button">
+							<a href="login.do" class="btn btn-default btn-block" role="button">
 								<i class="fa fa-edit"></i>로그인 한 사용자만 작성 가능합니다.
 							</a>
 						</c:if>
@@ -305,7 +305,6 @@ $(document).ready(function () {
                         getReplies(); // 댓글 목록 호출
                         getReplyCount();
                         replyTextObj.val("");   // 댓글 입력창 공백처리
-                        replyWriterObj.val("");   // 댓글 입력창 공백처리
                     }
                 },
                 error: function(){

@@ -47,7 +47,7 @@ public class userDAOImpl implements userDAO{
 		Map<String,Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("user_Id",user_Id);
 		paramMap.put("session_Id",session_Id);
-		paramMap.put("sessionLimit", session_Limit);
+		paramMap.put("session_Limit", session_Limit);
 		
 		sqlSession.update(NAMESPACE + ".keepLogin",paramMap);
 	}
@@ -73,10 +73,16 @@ public class userDAOImpl implements userDAO{
 
     @Override
     public void userPwUpdate(String userId, String newUserPw) throws Exception {
-        Map<String, Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("user_Id", userId);
         paramMap.put("newUser_Pw", newUserPw);
         sqlSession.update(NAMESPACE + ".userPwUpdate", paramMap);
     }
+
+	@Override
+	public void userLoginDate(String user_Id) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.update(NAMESPACE + ".loginDate",user_Id);
+	}
 	
 }

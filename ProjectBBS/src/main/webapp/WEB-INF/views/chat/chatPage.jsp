@@ -30,30 +30,23 @@
 
         <!-- Main content -->
         <section class="content container-fluid">
-			<form id="chatForm">
-				<input class="form-control" type="text" id="message"/> <br/>
-				<button class="btn btn-default pull-right"><i class="fa fa-wechat"></i> 입력</button>
+			<form name="contact-form" class="form" action="<c:url value='/sendMail'/>" method="POST">
+			    <div class="col-xs-12">
+			        <label>
+			            <span>제목:</span>
+			            <input type="text" name="subject" value="" placeholder="제목" required>
+			        </label>
+			    </div>
+			    <div class="col-xs-12">
+			        <label>
+			            <span>내용:</span>
+			            <textarea name="message" rows="4" placeholder="메시지" required></textarea>
+			        </label>
+			        <button type="submit" class="button">
+			            <span class="default">Send <i class="icon fa fa-paper-plane"></i></span>
+			        </button>
+			    </div>
 			</form>
-			<div id="chat"></div>
-			<script>
-				$(document).ready(function(){
-					$("#chatForm").submit(function(event){
-						event.preventDefault();
-						sock.send($("#message").val());
-						$("#message").val('').focus();
-					});
-				});
-				
-				var sock = new SockJS("/echo");
-				sock.onmessage = function(e){
-					$("#chat").append(e.data + "<br/>");
-				}
-				
-				sock.onclose = function(){
-					$("#chat").append("연결 종료");
-				}
-			
-			</script>
 			
         </section>
         <!-- /.content -->

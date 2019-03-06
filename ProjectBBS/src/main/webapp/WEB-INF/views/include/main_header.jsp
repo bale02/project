@@ -8,7 +8,7 @@
         <%-- mini logo for sidebar mini 50x50 pixels --%>
         <span class="logo-mini"><b>M</b>B</span>
         <%-- logo for regular state and mobile devices --%>
-        <span class="logo-lg"><b>MVC</b> Board</span>
+        <span class="logo-lg"><b>MY</b> Board</span>
     </a>
 
     <%-- Header Navbar --%>
@@ -21,12 +21,12 @@
                 <c:if test="${not empty login}">
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="/${login.userImg}" class="user-image" alt="User Image">
+                            <img src="resources/dist/img/default-user.png" class="user-image" alt="User Image">
                             <span class="hidden-xs">${login.user_Name}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">
-                                <img src="/${login.userImg}" class="img-circle" alt="User Image">
+                                <img src="resources/dist/img/default-user.png" class="img-circle" alt="User Image">
                                 <p>${login.user_Name}
                                     <small>
                                         가입일자 : <fmt:formatDate value="${login.user_Join_Date}" pattern="yyyy-MM-dd"/>
@@ -35,8 +35,7 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="info" class="btn btn-default btn-flat"><i
-                                            class="fa fa-info-circle"></i><b> 내 프로필</b></a>
+                                    <a href="info" class="btn btn-default btn-flat"><i class="fa fa-info-circle"></i><b> 내 프로필</b></a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="logout" class="btn btn-default btn-flat"><i

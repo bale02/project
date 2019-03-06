@@ -19,4 +19,6 @@ public interface userService {
     void userInfoModify(userVO userVO) throws Exception;
 
     void userPwModify(String userId, String newUserPw) throws Exception;
+    
+    void userLoginDate(String user_Id) throws Exception;
 }

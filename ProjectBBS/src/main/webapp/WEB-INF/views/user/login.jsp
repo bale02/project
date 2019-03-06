@@ -6,7 +6,7 @@
 <div class="login-box">
     <div class="login-logo">
         <a href="${path}/">
-            <b>DoubleS</b>&nbsp MVC-BOARD
+            <b>My</b> BOARD
         </a>
     </div>
     <!-- /.login-logo -->
