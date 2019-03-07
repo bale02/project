@@ -36,24 +36,7 @@
                              src="resources/dist/img/default-user.png" alt="User profile picture">
                         <h3 class="profile-username text-center">${login.user_Name}</h3>
                         <ul class="list-group list-group-unbordered">
-                            <li class="list-group-item">
-                                <div class="progress active">
-                                    <div class="progress-bar progress-bar-success progress-bar-striped"
-                                         role="progressbar"
-                                         aria-valuenow="20"
-                                         aria-valuemin="0"
-                                         aria-valuemax="100" style="width: 20%">
-                                        <span class="sr-only">20% Complete</span>
-                                    </div>
-                                </div>
-                                <b>활동 포인트 / 레벨</b> <a class="pull-right">1,322 / lv. 10</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>팔로잉</b> <a class="pull-right">543</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>팔로우</b> <a class="pull-right">13,287</a>
-                            </li>
+                           
                         </ul>
                         <div class="text-center">
                             <div class="btn-group">

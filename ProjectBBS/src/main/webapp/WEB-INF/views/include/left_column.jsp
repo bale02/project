@@ -58,14 +58,24 @@
                 </c:if>
                 <c:if test="${not empty login}">
                  <ul class="treeview-menu">
-                    <li><a href="modify"><i class="fa fa-info-circle"></i> 회원정보</a></li>
+                    <li><a href="info"><i class="fa fa-info-circle"></i> 회원정보</a></li>
                     <li><a href="logout"><i class="glyphicon glyphicon-log-out"></i> 로그아웃</a></li>
                 </ul>
                 </c:if>
             </li>
             <li class="header">게시판</li>
             <li class="treeview">
-                <a href="#"><i class="fa fa-edit"></i> <span>게시판(기본)</span>
+                <a href="#"><i class="fa fa-edit"></i> <span>도서관</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="library"><i class="fa fa-pencil"></i>도서 목록</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="fa fa-edit"></i> <span>게시판</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -76,27 +86,16 @@
                 </ul>
             </li>
             <li class="treeview">
-                <a href="#"><i class="fa fa-edit"></i> <span>게시판(페이징)</span>
+                <a href="#"><i class="fa fa-edit"></i> <span>채팅방</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="${path}/article/paging/write"><i class="fa fa-pencil"></i> 게시글 쓰기</a></li>
-                    <li><a href="${path}/article/paging/list"><i class="fa fa-list"></i> 게시글 목록</a></li>
+                    <li><a href="chat"><i class="fa fa-pencil"></i> 채팅방</a></li>
                 </ul>
             </li>
-            <li class="treeview">
-                <a href="#"><i class="fa fa-edit"></i> <span>게시판(페이징+검색)</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="${path}/article/paging/search/write"><i class="fa fa-pencil"></i> 게시글 쓰기</a></li>
-                    <li><a href="${path}/article/paging/search/list"><i class="fa fa-list"></i> 게시글 목록</a></li>
-                </ul>
-            </li>
+            
 
         </ul>
         <!-- /.sidebar-menu -->

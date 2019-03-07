@@ -10,6 +10,7 @@ public class userVO {
 	private Date user_Join_Date;
 	private Date user_Login_Date;
 	private String userImg;
+	private int book_cnt;
 	public String getUser_Id() {
 		return user_Id;
 	}
@@ -51,6 +52,12 @@ public class userVO {
 	}
 	public void setUserImg(String userImg) {
 		this.userImg = userImg;
+	}
+	public int getBook_cnt() {
+		return book_cnt;
+	}
+	public void setBook_cnt(int book_cnt) {
+		this.book_cnt = book_cnt;
 	}
 	
 	

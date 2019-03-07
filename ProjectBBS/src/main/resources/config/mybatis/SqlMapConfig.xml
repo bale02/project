@@ -8,6 +8,7 @@
 	   <typeAlias alias="replyVO" type="net.reply.domain.replyVO"/>
 	   <typeAlias alias="boardFileVO" type="net.board.domain.boardFileVO"/>
 	   <typeAlias alias="userVO" type="net.user.domain.userVO"/>
+       <typeAlias alias="libraryVO" type="net.library.domain.libraryVO"/>
 	</typeAliases>
 	
 	<mappers>
@@ -15,5 +16,6 @@
 		<mapper resource="mappers/reply/replyMapper.xml"/>
 		<mapper resource="mappers/upload/boardFileMapper.xml"/>
 		<mapper resource="mappers/user/userMapper.xml"/>
+        <mapper resource="mappers/library/libraryMapper.xml"/>
 	</mappers>
 </configuration>

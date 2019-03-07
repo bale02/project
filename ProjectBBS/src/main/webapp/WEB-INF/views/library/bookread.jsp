@@ -32,32 +32,19 @@
         <section class="content container-fluid">
 			<div class="col-lg-12">
 				<div class="box box-primary">
-					<h3 class="box-title">글 제목 : ${board.title}</h3>
+					<h3 class="box-title">책 이름 : ${library.book_Name}</h3>
 				</div>
-				<div class="box-body" style="height: 600px">
-					${board.content}
-				</div>
-				<%--업로드 파일 영역 --%>
-				<div class="box-footer uploadFiles">
-					<ul class="mailbox-attachment clearfix uploadedFileList"></ul>
-				</div>
-				<div class="box-footer">
-					<div class="user-block">
-						<img class="img-circle img-bordered-sm" src="../dist/img/user1-128x128.jpg" alt="user image">
-						<span class="username">
-							<a href="#">${board.writer}</a>
-						</span>
-						<span class="description"><fmt:formatDate pattern="yyyy-MM-dd a HH:mm" value="${board.regdate}"/></span>
-					</div>
+				<div class="box-body">
+					저자 : ${library.book_Writer}<br/>
+					출판사 : ${library.book_Publisher}
 				</div>
 				<div class="box-footer">
 					<form role="form" method="post">
-						<input type="hidden" name="board_No" value="${board.board_No}">
+						<input type="hidden" name="Book_No" value="${library.book_No}">
 					</form>
 					<button type="submit" class="btn btn-primary listBtn" ><i class="fa fa-list"></i> 목록</button>
-					<c:if test="${login.user_Id == board.writer || login.user_Id == 'admin'}">
+					<c:if test="${login.user_Id == 'admin'}">
 						<div class="pull-right">
-							<button type="submit" class="btn btn-warning modBtn" ><i class="fa fa-edit"></i> 수정</button>
 							<button type="submit" class="btn btn-danger delBtn" ><i class="fa fa-trash" ></i> 삭제</button>
 						</div>
 					</c:if>
@@ -379,11 +366,6 @@ $(document).ready(function () {
 		var formObj = $("form[role='form']");
 		console.log(formObj);
 		
-		$(".modBtn").on("click",function(){
-			formObj.attr("action","modify.do");
-			formObj.attr("method","GET");
-			formObj.submit();
-		});
 		$(".listBtn").on("click",function(){
 			self.location="listCriteria.do";
 		});
@@ -404,7 +386,7 @@ $(document).ready(function () {
 				});
 			}
 			
-			formObj.attr("action","delete.do");
+			formObj.attr("action","book_delete");
 			formObj.attr("method","GET");
 			formObj.submit();
 		});

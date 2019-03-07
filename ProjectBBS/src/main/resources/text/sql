@@ -11,3 +11,39 @@ create table board_user(
 	primary key (user_id)
 );
 
+create table library(
+	book_no number(5),
+	book_name varchar2(100) not null,
+	book_writer varchar2(50) not null,
+	book_publisher varchar2(100) not null,
+	book_check char(1) not null,
+	book_limitdate date,
+	book_Replycnt number(5),
+	user_id varchar2(50) not null,
+	primary key (book_no)
+);
+create sequence library_seq;
+
+create sequence book_reply_seq;
+
+create table book_reply(
+	reply_no number(5) not null,
+	book_no number(5) not null,
+	reply_text varchar2(500) not null,
+	reply_writer varchar2(40) not null,
+	regdate date not null,
+	primary key (reply_no)
+);
+
+create table message(
+	user_id varchar2(50) not null,
+	message_date date not null,
+	message_title varchar2(100) not null,
+	message_text varchar2(100) not null
+);
+
+alter table board_user add(book_cnt number(5));
+
+alter table book_reply add constraint FK_library foreign key (book_no) references library(book_no);
+
+

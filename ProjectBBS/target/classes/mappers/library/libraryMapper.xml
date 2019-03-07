@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.mappers.library.libraryMapper">
+
+<insert id="insert">
+    insert into library values(
+        library_seq.nextval,#{book_Name},#{book_Writer},#{book_Publisher},1,sysdate,0,'admin'
+    )
+</insert>
+
+<select id="listAll" resultType="libraryVO">
+    select * from ( select rownum as rn, b.*  from ( select * from library
+      <if test="skey != null">
+         <if test="skey == 'title'"> where upper(title) like '%' || upper(#{sval}) || '%' </if>
+         <if test="skey == 'writer'"> where upper(writer) like '%' || upper(#{sval}) || '%' </if>
+         <if test="skey == 'publisher'"> where upper(publisher) like '%' || upper(#{sval}) || '%' </if>
+         <if test="skey == 'all'"> where upper(title) || upper(writer) || upper(publisher) like '%' || upper(#{sval}) || '%'
+         </if>
+      </if>
+      order by book_no desc ) b ) where rn between #{start} and #{end} 
+</select>
+
+<delete id="delete">
+    delete from library where book_no = #{book_No}
+</delete>
+
+<update id="rental">
+    update library set book_check = '0' , user_Id = #{user_Id}
+        where book_no = #{book_No}
+</update>
+
+<update id="return">
+    update library set book_check = '1',user_Id = 'admin'
+        where book_no = #{book_No}
+</update>
+
+<select id="countbooks">
+    select count(*) from library where = #{user_Id}
+</select>
+
+<select id="count" resultType="int">
+    select count(*) from library
+</select>
+
+<select id="countone" resultType="int">
+    select count(*) from board <if test="skey != null">
+        <if test="skey == 'title'"> where upper(title) like '%' || upper(#{sval}) || '%' </if>
+         <if test="skey == 'writer'"> where upper(writer) like '%' || upper(#{sval}) || '%' </if>
+         <if test="skey == 'publisher'"> where upper(publisher) like '%' || upper(#{sval}) || '%' </if>
+         <if test="skey == 'all'"> where upper(title) || upper(writer) || upper(publisher) like '%' || upper(#{sval}) || '%'
+         </if>
+    </if>
+</select>
+
+<select id="select">
+    	 	<![CDATA[
+    	select * from ( select b.*, rownum r from library b order by book_no desc)
+      		where r between #{start} and #{end} 
+          	]]>
+</select>
+
+<update id="updateReplyCnt">
+ 		update library set book_replycnt = book_replycnt + #{amount} where book_no = #{book_No}
+</update>
+
+<select id="read" parameterType="int" resultType="libraryVO">
+    select * from library where book_No = #{book_No}
+</select>
+
+</mapper>
+

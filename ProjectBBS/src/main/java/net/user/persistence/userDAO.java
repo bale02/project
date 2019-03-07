@@ -24,4 +24,6 @@ public interface userDAO {
     void userPwUpdate(String userId, String newUserPw) throws Exception;
     
     void userLoginDate(String user_Id) throws Exception;
+    
+    void userBookRental(int book_cnt) throws Exception;
 }

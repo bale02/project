@@ -13,13 +13,14 @@
         <result property="user_Email" column="user_Email"/>
         <result property="user_Join_Date" column="user_Join_Date"/>
         <result property="user_Login_Date" column="user_Login_Date"/>
+        <result property="book_cnt" column="book_cnt"/>
         <result property="userImg" column="userImg"/>	
     </resultMap>
 
 
 	<insert id="register">
-		insert into board_user(user_id,user_pw,user_name,user_email,session_key,session_limit,user_img,user_join_date,user_login_date) 
-			values (#{user_Id},#{user_Pw},#{user_Name},#{user_Email},'none',sysdate,'user/default-user.png',sysdate,sysdate)
+		insert into board_user(user_id,user_pw,user_name,user_email,session_key,session_limit,user_img,user_join_date,user_login_date,book_cnt) 
+			values (#{user_Id},#{user_Pw},#{user_Name},#{user_Email},'none',sysdate,'user/default-user.png',sysdate,sysdate,0)
 	</insert>
 
     <select id="login" resultType="userVO">
@@ -50,4 +51,8 @@
 	<update id="userPwUpdate">
 		update board_user set user_pw = #{newUser_Pw} where user_id = #{user_Id}
 	</update>
+
+    <update id="bookrental">
+        update board_user set book_cnt = #{book_cnt} where user_id = #{user_id}
+    </update>
 </mapper>

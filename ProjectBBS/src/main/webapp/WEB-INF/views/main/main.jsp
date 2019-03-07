@@ -21,7 +21,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                채팅창
+                정보도서관
             </h1>
             <ol class="breadcrumb">
                 <li><a href="${path}/"><i class="fa fa-dashboard"></i> home</a></li>
@@ -30,30 +30,6 @@
 
         <!-- Main content -->
         <section class="content container-fluid">
-			<form id="chatForm">
-				<input class="form-control" type="text" id="message"/> <br/>
-				<button class="btn btn-default pull-right"><i class="fa fa-wechat"></i> 입력</button>
-			</form>
-			<div id="chat"></div>
-			<script>
-				$(document).ready(function(){
-					$("#chatForm").submit(function(event){
-						event.preventDefault();
-						sock.send($("#message").val());
-						$("#message").val('').focus();
-					});
-				});
-				
-				var sock = new SockJS("/echo");
-				sock.onmessage = function(e){
-					$("#chat").append(e.data + "<br/>");
-				}
-				
-				sock.onclose = function(){
-					$("#chat").append("연결 종료");
-				}
-			
-			</script>
 			
         </section>
         <!-- /.content -->

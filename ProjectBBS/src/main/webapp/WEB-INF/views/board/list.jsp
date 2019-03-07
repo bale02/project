@@ -13,7 +13,6 @@
 		alert("게시글 삭제가 완료되었습니다.");
 	}
 </script>
-</script>
 <div class="wrapper">
 
     <!-- Main Header -->

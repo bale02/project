@@ -157,7 +157,6 @@ public class BoardController {
 		
 		List<boardVO> list = boardService.listCriteria(criteria);
 		mav.addObject("boards",list);
-		mav.addObject("naver",list);
 		mav.addObject("total",total);
 		mav.addObject("Stotal",Stotal);
 		mav.addObject("startpage",startpage);

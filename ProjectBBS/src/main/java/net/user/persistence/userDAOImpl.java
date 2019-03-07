@@ -84,5 +84,11 @@ public class userDAOImpl implements userDAO{
 		// TODO Auto-generated method stub
 		sqlSession.update(NAMESPACE + ".loginDate",user_Id);
 	}
+
+	@Override
+	public void userBookRental(int book_cnt) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.update(NAMESPACE +".bookrental", book_cnt);
+	}
 	
 }

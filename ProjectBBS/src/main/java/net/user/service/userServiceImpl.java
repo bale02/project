@@ -71,6 +71,12 @@ public class userServiceImpl implements userService{
 		userDAO.userLoginDate(user_Id);
 	}
 
+	@Override
+	public void userBookRental(int book_cnt) throws Exception {
+		// TODO Auto-generated method stub
+		userDAO.userBookRental(book_cnt);
+	}
+
 	
 	
 }

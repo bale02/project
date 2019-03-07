@@ -10,4 +10,8 @@ public class MainController {
 	public String dashBaord(){
 		return "/main/main";
 	}
+	@RequestMapping("chat")
+	public String chatPage() {
+		return "/chat/chatPage";
+	}
 }
