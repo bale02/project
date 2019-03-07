@@ -45,17 +45,23 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">테스트 예제</li>
             <li class="treeview">
-                <a href="#"><i class="fa fa-folder"></i> <span>예제</span>
+                <a href="#"><i class="fa fa-folder"></i> <span>회원</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
+                <c:if test="${empty login}">
                 <ul class="treeview-menu">
-                    <li><a href="${path}/reply/test"><i class="fa fa-comment"></i> 댓글 </a></li>
-                    <li><a href="${path}/file/form/uploadPage"><i class="fa fa-file"></i> 파일 업로드(Form)</a></li>
-                    <li><a href="${path}/file/ajax/uploadPage"><i class="fa fa-file"></i> 파일 업로드(Ajax Drop)</a></li>
-                    <li><a href="${path}/interceptor/doA"><i class="fa fa-mail-forward"></i> 인터셉터</a></li>
+                    <li><a href="login.do"><i class="glyphicon glyphicon-log-in"></i> 로그인</a></li>
+                    <li><a href="register.do"><i class="fa fa-user-plus"></i> 회원가입</a></li>
                 </ul>
+                </c:if>
+                <c:if test="${not empty login}">
+                 <ul class="treeview-menu">
+                    <li><a href="modify"><i class="fa fa-info-circle"></i> 회원정보</a></li>
+                    <li><a href="logout"><i class="glyphicon glyphicon-log-out"></i> 로그아웃</a></li>
+                </ul>
+                </c:if>
             </li>
             <li class="header">게시판</li>
             <li class="treeview">

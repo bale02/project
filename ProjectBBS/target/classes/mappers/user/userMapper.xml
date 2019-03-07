@@ -5,6 +5,18 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="net.mappers.user.userMapper">
+
+    <resultMap id="userVOResultMap" type="UserVO">
+        <id property="user_Id" column="user_Id"/>
+        <result property="user_Pw" column="user_Pw"/>
+        <result property="user_Name" column="user_Name"/>
+        <result property="user_Email" column="user_Email"/>
+        <result property="user_Join_Date" column="user_Join_Date"/>
+        <result property="user_Login_Date" column="user_Login_Date"/>
+        <result property="userImg" column="userImg"/>	
+    </resultMap>
+
+
 	<insert id="register">
 		insert into board_user(user_id,user_pw,user_name,user_email,session_key,session_limit,user_img,user_join_date,user_login_date) 
 			values (#{user_Id},#{user_Pw},#{user_Name},#{user_Email},'none',sysdate,'user/default-user.png',sysdate,sysdate)
@@ -22,7 +34,7 @@
         update board_user set session_key = #{session_Id},session_limit = #{session_Limit} where user_Id = #{user_Id}
     </update>
     
-    <select id="checkUserWithSessionKey" resultType="userVO">
+    <select id="checkUserWithSessionKey" resultMap="userVOResultMap">
         select * from board_user where session_key = #{value}
     </select>
 
