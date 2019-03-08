@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="net.mappers.reply.bookReplyMapper">
+	<select id="list" resultType="bookreplyVO">
+		select * from book_reply where book_no = #{book_No} order by reply_no
+	</select>
+	
+	<insert id="create">
+		insert into book_reply values(
+			book_reply_seq.nextval,#{book_No},#{reply_Text},#{reply_Writer},sysdate
+		)
+	</insert>
+	
+	<update id="update">
+		update book_reply set 
+			reply_text = #{reply_Text}
+					where reply_no = #{reply_No}
+	</update>
+	
+	<delete id="delete">
+		delete from book_reply where reply_no = #{reply_No}
+	</delete>
+	
+	
+	<select id="countReplies" resultType="int">
+		select count(*)  from book_reply where book_no = #{book_No} 
+	</select>
+	
+	<select id="getBookNo" resultType="int">
+		select book_no from book_reply where reply_no = #{reply_No}
+	</select>
+</mapper>

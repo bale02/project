@@ -9,6 +9,7 @@
 	   <typeAlias alias="boardFileVO" type="net.board.domain.boardFileVO"/>
 	   <typeAlias alias="userVO" type="net.user.domain.userVO"/>
        <typeAlias alias="libraryVO" type="net.library.domain.libraryVO"/>
+       <typeAlias alias="bookreplyVO" type="net.reply.domain.bookreplyVO"/>
 	</typeAliases>
 	
 	<mappers>
@@ -17,5 +18,6 @@
 		<mapper resource="mappers/upload/boardFileMapper.xml"/>
 		<mapper resource="mappers/user/userMapper.xml"/>
         <mapper resource="mappers/library/libraryMapper.xml"/>
+        <mapper resource="mappers/reply/bookReplyMapper.xml"/>
 	</mappers>
 </configuration>

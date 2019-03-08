@@ -32,7 +32,7 @@ public class userInfoContoroller {
     // 회원 정보 수정
     @RequestMapping(value = "/modify", method = RequestMethod.POST)
     public String userInfoModify(userVO userVO, HttpSession httpSession, RedirectAttributes redirectAttributes) throws Exception {
-        boolean userPwValid = userService.isValidUserPw(userVO.getUser_Id(), userVO.getUser_Pw());
+    	boolean userPwValid = userService.isValidUserPw(userVO.getUser_Id(), userVO.getUser_Pw());
         if (!userPwValid) {
             redirectAttributes.addFlashAttribute("msg", "INVALID userPw");
             return "redirect:/info";

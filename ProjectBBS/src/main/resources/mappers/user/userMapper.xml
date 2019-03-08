@@ -40,11 +40,11 @@
     </select>
 
 	<select id="getUserPw" resultType="string">
-		select * from user_pw from where user_id = #{user_Id}
+		select user_pw from board_user where user_id = #{user_Id}
 	</select>
 	
 	<update id="userInfoUpdate">
-		update board_user set user_name = #{user_Name}, user_email = #{user_Email},
+		update board_user set user_name = #{user_Name}, user_email = #{user_Email}
 			where user_Id = #{user_Id}
 	</update>
 	

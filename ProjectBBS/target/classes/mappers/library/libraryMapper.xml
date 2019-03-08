@@ -14,10 +14,10 @@
 <select id="listAll" resultType="libraryVO">
     select * from ( select rownum as rn, b.*  from ( select * from library
       <if test="skey != null">
-         <if test="skey == 'title'"> where upper(title) like '%' || upper(#{sval}) || '%' </if>
-         <if test="skey == 'writer'"> where upper(writer) like '%' || upper(#{sval}) || '%' </if>
-         <if test="skey == 'publisher'"> where upper(publisher) like '%' || upper(#{sval}) || '%' </if>
-         <if test="skey == 'all'"> where upper(title) || upper(writer) || upper(publisher) like '%' || upper(#{sval}) || '%'
+         <if test="skey == 'title'"> where upper(book_Name) like '%' || upper(#{sval}) || '%' </if>
+         <if test="skey == 'writer'"> where upper(book_Writer) like '%' || upper(#{sval}) || '%' </if>
+         <if test="skey == 'publisher'"> where upper(book_publisher) like '%' || upper(#{sval}) || '%' </if>
+         <if test="skey == 'all'"> where upper(book_Name) || upper(book_Writer) || upper(book_publisher) like '%' || upper(#{sval}) || '%'
          </if>
       </if>
       order by book_no desc ) b ) where rn between #{start} and #{end} 
@@ -28,8 +28,8 @@
 </delete>
 
 <update id="rental">
-    update library set book_check = '0' , user_Id = #{user_Id}
-        where book_no = #{book_No}
+    update library set book_check = '0' , user_Id = #{user_Id},
+            book_limitdate = sysdate+7 where book_no = #{book_No}
 </update>
 
 <update id="return">
@@ -37,8 +37,8 @@
         where book_no = #{book_No}
 </update>
 
-<select id="countbooks">
-    select count(*) from library where = #{user_Id}
+<select id="countbooks" resultType="int">
+    select count(*) from library where user_id = #{user_Id}
 </select>
 
 <select id="count" resultType="int">
@@ -46,12 +46,11 @@
 </select>
 
 <select id="countone" resultType="int">
-    select count(*) from board <if test="skey != null">
-        <if test="skey == 'title'"> where upper(title) like '%' || upper(#{sval}) || '%' </if>
-         <if test="skey == 'writer'"> where upper(writer) like '%' || upper(#{sval}) || '%' </if>
-         <if test="skey == 'publisher'"> where upper(publisher) like '%' || upper(#{sval}) || '%' </if>
-         <if test="skey == 'all'"> where upper(title) || upper(writer) || upper(publisher) like '%' || upper(#{sval}) || '%'
-         </if>
+    select count(*) from library <if test="skey != null">
+         <if test="skey == 'title'"> where upper(book_Name) like '%' || upper(#{sval}) || '%' </if>
+         <if test="skey == 'writer'"> where upper(book_Writer) like '%' || upper(#{sval}) || '%' </if>
+         <if test="skey == 'publisher'"> where upper(book_publisher) like '%' || upper(#{sval}) || '%' </if>
+         <if test="skey == 'all'"> where upper(book_Name) || upper(book_Writer) || upper(book_publisher) like '%' || upper(#{sval}) || '%' </if>
     </if>
 </select>
 

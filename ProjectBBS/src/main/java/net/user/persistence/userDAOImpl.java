@@ -62,7 +62,6 @@ public class userDAOImpl implements userDAO{
 
     @Override
     public String getUserPw(String user_Id) throws Exception {
-
         return sqlSession.selectOne(NAMESPACE + ".getUserPw", user_Id);
     }
 

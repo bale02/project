@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import net.commons.paging.Criteria;
 import net.library.domain.libraryVO;
 import net.library.service.libraryService;
+import net.user.domain.userVO;
 
 
 @Controller
@@ -33,6 +35,9 @@ public class libraryController {
 		// TODO Auto-generated constructor stub
 		this.libraryService = libraryService;
 	}
+	
+	@Autowired
+	HttpSession Session;
 	
 	@RequestMapping(value="/book")
 	public String book() {
@@ -61,32 +66,34 @@ public class libraryController {
 	
 	// 책 삭제
 	@RequestMapping(value="/book_delete",method=RequestMethod.GET)
-	public String delete(@RequestParam("book_No") int book_No,RedirectAttributes redirectAttributes) throws Exception{
+	public String delete(libraryVO libraryVO,RedirectAttributes redirectAttributes) throws Exception{
 		logger.info("book_delete");
 		
-		libraryService.bookDelete(book_No);
+		libraryService.bookDelete(libraryVO.getBook_No());
 		redirectAttributes.addFlashAttribute("msg","DEL");
 		return "redirect:/library";
 	}
 	
 	// 대출
-	@RequestMapping(value="/book_rental",method=RequestMethod.POST)
+	@RequestMapping(value="/book_rental",method=RequestMethod.GET)
 	public String bookRental(libraryVO libraryVO,RedirectAttributes redirectAttributes) throws Exception{
 		logger.info("book Rental..");
-		int check = libraryService.Countbooks(libraryVO.getUser_Id());
-		if(check > 3) {
+		userVO userVO =(userVO)Session.getAttribute("login");
+		
+		int check = libraryService.Countbooks(userVO.getUser_Id());
+		if(check >= 3) {
 			redirectAttributes.addFlashAttribute("msg","Overcnt");
 			return "redirect:/library";
 		}
-		libraryService.bookRental(libraryVO.getBook_No(), libraryVO.getUser_Id());
+		libraryService.bookRental(libraryVO.getBook_No(), userVO.getUser_Id());
 		redirectAttributes.addFlashAttribute("msg","Rental");
 		return "redirect:/library";
 	}
 	//반납
 	@RequestMapping(value="/book_return",method=RequestMethod.GET)
-	public String bookReturn(@RequestParam("book_No") int book_No,RedirectAttributes redirectAttributes) throws Exception {
+	public String bookReturn(libraryVO libraryVO,RedirectAttributes redirectAttributes) throws Exception {
 		logger.info("book return..");
-		libraryService.bookReturn(book_No);
+		libraryService.bookReturn(libraryVO.getBook_No());
 		redirectAttributes.addFlashAttribute("msg","Return");
 		
 		return "redirect:/library";

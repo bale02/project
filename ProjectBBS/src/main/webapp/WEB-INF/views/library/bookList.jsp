@@ -137,6 +137,25 @@
 
 <%@ include file="../include/plugin_js.jsp"%>
 
+<script type="text/javascript">
+	$(function(){
+		setSearchTypeSelect();
+		function setSearchTypeSelect(){
+			var $keyfield = $('keyfield');
+			var $keyword = $('keyword');
+			
+		$('#searchBtn').on('click',function(){
+			var keyfieldVal = $keyfield.val();
+			var keywordVal = $keyword.val();
+			self.location.href="library?page=1&" +
+					"keyfield=" +$('#keyfield').val() + "&keyword=" + $('#keyword').val();
+			})
+		
+		}	
+	})
+
+
+</script>
 </body>
 
 </html>

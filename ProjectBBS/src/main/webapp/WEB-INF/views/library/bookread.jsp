@@ -48,6 +48,26 @@
 							<button type="submit" class="btn btn-danger delBtn" ><i class="fa fa-trash" ></i> 삭제</button>
 						</div>
 					</c:if>
+					<c:if test="${login.user_Id != null && login.user_Id != 'admin' }">
+						<c:choose>
+							<c:when test="${library.book_Check == 1}">
+								<div class="pull-right">
+									<button type="submit" class="btn btn-warning rentalBtn" ><i class="fa fa-book" ></i> 대출</button>
+								</div>
+							</c:when>
+							<c:when test="${library.book_Check==0 && library.user_Id == login.user_Id}">
+								<div class="pull-right">
+									<button type="submit" class="btn btn-primary returnBtn" ><i class="fa fa-book" ></i> 반납</button>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div class="pull-right">
+									<button type="submit" class="btn btn-danger disabled" ><i class="fa fa-book" ></i> 대출불가</button>
+								</div>
+							</c:otherwise>
+						</c:choose>
+					</c:if>
+					
 				</div> 
 			
 			
@@ -192,9 +212,9 @@ $(document).ready(function () {
         return accum;
     });
 	
-    var board_No = "${board.board_No }";  // 현재 게시글 번호
+    var book_No = "${library.book_No}";  // 현재 게시글 번호
    	
-    getFiles(board_No);
+    getFiles(book_No);
     
     // 댓글 내용 : 줄바꿈/공백처리
     Handlebars.registerHelper("escape", function (replyText) {
@@ -225,14 +245,14 @@ $(document).ready(function () {
 
     // 댓글 목록 함수
     function getReplies() {
-        $.getJSON("count/"+board_No, function (data) {
+        $.getJSON("book_count/"+book_No, function (data) {
             printReplies(data.replies, $(".repliesDiv"), $("#replyTemplate"));
         });
     }
     getReplyCount();
 
 	function getReplyCount(){
-		$.getJSON("count/"+board_No,function(data){
+		$.getJSON("book_count/"+book_No,function(data){
 		
 		var repliesCount = data.repliesCount; 
 		var replyCount = $(".replyCount");
@@ -273,14 +293,14 @@ $(document).ready(function () {
 			}
             $.ajax({
                 type: "post",
-                url: "replies/",
+                url: "book_replies/",
                 headers: {
                     "Content-Type": "application/json",
                     "X-HTTP-Method-Override": "POST"
                 },
                 dataType: "text",
                 data: JSON.stringify({
-                    board_No: board_No,
+                    book_No: book_No,
                     reply_Writer: replyWriter,
                     reply_Text: replyText
                 }),
@@ -346,7 +366,7 @@ $(document).ready(function () {
 			var reply_No = $(".reply_No").val();
 			$.ajax({
 				type : "DELETE",
-				url : "delete/" + reply_No,
+				url : "book_delete/" + reply_No,
 				headers : {
 					"Content-Type" : "application/json",
 					"X-HTTP-Method-Override" : "DELETE"
@@ -367,8 +387,21 @@ $(document).ready(function () {
 		console.log(formObj);
 		
 		$(".listBtn").on("click",function(){
-			self.location="listCriteria.do";
+			self.location="library";
 		});
+		
+		$(".rentalBtn").on("click",function(){
+			formObj.attr("action","book_rental");
+			formObj.attr("method","GET");
+			formObj.submit();
+		})
+		
+		$(".returnBtn").on("click",function(){
+			formObj.attr("action","book_return");
+			formObj.attr("method","GET");
+			formObj.submit();
+		});
+		
 		$(".delBtn").on("click",function(){
 			var replyCnt =$(".replyDiv").length;
 			if(replyCnt>0){
@@ -382,10 +415,8 @@ $(document).ready(function () {
 			
 			if(arr.length>0){
 				$.post("file_DeleteAll", {files: arr}, function () {
-					
 				});
 			}
-			
 			formObj.attr("action","book_delete");
 			formObj.attr("method","GET");
 			formObj.submit();

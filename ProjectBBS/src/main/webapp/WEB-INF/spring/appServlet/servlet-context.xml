@@ -50,6 +50,7 @@
 			<mapping path="/modify.do"/>
 			<mapping path="/delete.do"/>
 			<mapping path="/info.do"/>
+			<mapping path="/info"/>
 			<beans:ref bean="authInterceptor"/>
 		</interceptor>
 	</interceptors>
