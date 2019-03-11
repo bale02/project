@@ -102,4 +102,10 @@ public class libraryDAOImpl implements libraryDAO {
 		return sqlsession.selectOne(NAMESPACE+".read",book_No);
 	}
 
+	@Override
+	public List<libraryVO> rentalBooks(String user_Id) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlsession.selectList(NAMESPACE+".rentalbooks",user_Id);
+	}
+
 }

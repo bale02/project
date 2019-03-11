@@ -31,4 +31,6 @@ public interface libraryService {
 	void updateReplyCnt(int book_No,int amount) throws Exception;
 	
 	libraryVO read(Integer book_No) throws Exception;
+	
+	List<libraryVO> rentalBooks(String user_Id) throws Exception;
 }

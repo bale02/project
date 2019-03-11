@@ -61,6 +61,10 @@
           	]]>
 </select>
 
+<select id="rentalbooks" resultType="libraryVO">
+    select * from library where user_Id = #{user_Id}
+</select>
+
 <update id="updateReplyCnt">
  		update library set book_replycnt = book_replycnt + #{amount} where book_no = #{book_No}
 </update>

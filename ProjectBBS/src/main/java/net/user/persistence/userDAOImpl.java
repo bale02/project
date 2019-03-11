@@ -89,5 +89,11 @@ public class userDAOImpl implements userDAO{
 		// TODO Auto-generated method stub
 		sqlSession.update(NAMESPACE +".bookrental", book_cnt);
 	}
+
+	@Override
+	public Integer userCheck(String user_Id) throws Exception {
+		
+		return sqlSession.selectOne(NAMESPACE+".usercheck",user_Id);
+	}
 	
 }

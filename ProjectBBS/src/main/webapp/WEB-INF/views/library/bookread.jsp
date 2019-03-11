@@ -394,7 +394,7 @@ $(document).ready(function () {
 			formObj.attr("action","book_rental");
 			formObj.attr("method","GET");
 			formObj.submit();
-		})
+		});
 		
 		$(".returnBtn").on("click",function(){
 			formObj.attr("action","book_return");

@@ -26,4 +26,6 @@ public interface userDAO {
     void userLoginDate(String user_Id) throws Exception;
     
     void userBookRental(int book_cnt) throws Exception;
+    
+    Integer userCheck(String user_Id) throws Exception;
 }

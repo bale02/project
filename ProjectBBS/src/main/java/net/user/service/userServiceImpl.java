@@ -77,6 +77,12 @@ public class userServiceImpl implements userService{
 		userDAO.userBookRental(book_cnt);
 	}
 
+	@Override
+	public Integer userCheck(String user_Id) throws Exception {
+		// TODO Auto-generated method stub
+		return userDAO.userCheck(user_Id);
+	}
+
 	
 	
 }

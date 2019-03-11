@@ -91,5 +91,11 @@ public class libraryServiceImpl implements libraryService {
 		return libraryDAO.read(book_No);
 	}
 
+	@Override
+	public List<libraryVO> rentalBooks(String user_Id) throws Exception {
+		// TODO Auto-generated method stub
+		return libraryDAO.rentalBooks(user_Id);
+	}
+
 
 }

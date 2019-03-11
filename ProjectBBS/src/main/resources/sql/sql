@@ -1,3 +1,43 @@
+create table board(
+	board_no number(5) not null,
+	title varchar2(200) not null,
+	content varchar(500),
+	writer varchar2(40) not null,
+	regdate date,
+	viewcnt number(5),
+	primary key(board_no)
+);
+
+create sequence board_seq;
+
+create table board_reply(
+	reply_no number(5) not null,
+	board_no number(5) not null,
+	reply_text varchar2(500) not null,
+	reply_writer varchar2(40) not null,
+	regdate date not null,
+	update_date date not null,
+	primary key (reply_no)
+);
+
+create sequence board_reply_seq;
+
+alter table board_reply add constraint FK_board foreign key (board_no) references board(board_no);
+
+alter table board add(reply_cnt number(5));
+
+create table board_file(
+	file_name varchar2(200) not null,
+	board_No number(5) not null,
+	regdate date,
+	primary key (file_name)
+);
+
+alter table board_file add constraint fk_board_file foreign key (board_no) references board(board_no)
+on delete cascade;
+
+alter table board add(file_cnt number(5));
+
 create table board_user(
 	user_id varchar2(50) not null,
 	user_pw varchar2(100) not null,

@@ -81,11 +81,13 @@ public class libraryController {
 		userVO userVO =(userVO)Session.getAttribute("login");
 		
 		int check = libraryService.Countbooks(userVO.getUser_Id());
+		userVO.setBook_cnt(check);
 		if(check >= 3) {
 			redirectAttributes.addFlashAttribute("msg","Overcnt");
 			return "redirect:/library";
 		}
 		libraryService.bookRental(libraryVO.getBook_No(), userVO.getUser_Id());
+		
 		redirectAttributes.addFlashAttribute("msg","Rental");
 		return "redirect:/library";
 	}
@@ -98,6 +100,17 @@ public class libraryController {
 		
 		return "redirect:/library";
 	}
+	
+	@RequestMapping(value="/info_return",method=RequestMethod.GET)
+	public String infoReturn(libraryVO libraryVO,RedirectAttributes redirectAttributes) throws Exception{
+		logger.info("info return..");
+		libraryService.bookReturn(libraryVO.getBook_No());
+		redirectAttributes.addFlashAttribute("msg","Return");
+		
+		return "redirect:/info";
+	}
+	
+	
 	// 책리스트 조회 
 	@RequestMapping(value="/library",method=RequestMethod.GET)
 	public ModelAndView viewLibrary(HttpServletRequest request) throws Exception {

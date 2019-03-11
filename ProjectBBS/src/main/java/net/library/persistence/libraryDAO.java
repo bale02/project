@@ -38,4 +38,6 @@ public interface libraryDAO {
 	void updateReplyCnt(Integer book_No,int amount) throws Exception;
 	
 	libraryVO read(Integer book_No) throws Exception;
+	
+	List<libraryVO> rentalBooks(String user_Id) throws Exception;
 }

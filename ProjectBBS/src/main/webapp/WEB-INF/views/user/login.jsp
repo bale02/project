@@ -2,6 +2,18 @@
 <!DOCTYPE html>
 <html>
 <%@ include file="../include/head.jsp" %>
+
+<script type="text/javascript">
+var msg = "${msg}";
+if (msg == "REGISTERED") {
+    alert("회원가입이 완료되었습니다. 로그인해주세요~");
+} else if (msg == "FAILURE") {
+    alert("아이디와 비밀번호를 확인해주세요.");
+} else if( msg == "Failed"){
+	alert("이미 존재하는 아이디입니다.");
+}
+</script>
+
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
@@ -51,7 +63,6 @@
         </div>
         <!-- /.social-auth-links -->
 
-        <a href="#">비밀번호 찾기</a><br>
         <a href="register.do" class="text-center">회원가입</a>
 
     </div>
@@ -61,21 +72,15 @@
 
 <%@ include file="../include/plugin_js.jsp" %>
 <script>
-
-    var msg = "${msg}";
-    if (msg === "REGISTERED") {
-        alert("회원가입이 완료되었습니다. 로그인해주세요~");
-    } else if (msg == "FAILURE") {
-        alert("아이디와 비밀번호를 확인해주세요.");
-    }
-
-    $(function () {
+   $(function () {
         $('input').iCheck({
             checkboxClass: 'icheckbox_square-blue',
             radioClass: 'iradio_square-blue',
             increaseArea: '20%' // optional
         });
     });
+    
+    
 </script>
 </body>
 </html>

@@ -1,6 +1,9 @@
 package net.user.controller;
 
+import java.io.PrintWriter;
+
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +33,23 @@ public class userRegisterController {
 	}
 	
 	@RequestMapping(value="/register.do", method=RequestMethod.POST)
-	public String registerPOST(userVO userVO,RedirectAttributes redirectAttributes) throws Exception{
-		String hashedPw = BCrypt.hashpw(userVO.getUser_Pw(),BCrypt.gensalt());
-		userVO.setUser_Pw(hashedPw);
-		userService.register(userVO);
-		redirectAttributes.addAttribute("msg","REGISTERED");
-		
-		return "redirect:/login.do";
+	public String registerPOST(userVO userVO,RedirectAttributes redirectAttributes,HttpServletResponse response) throws Exception{
+		int chk = userService.userCheck(userVO.getUser_Id());
+		if(chk == 1) {
+			PrintWriter writer=response.getWriter();
+			response.setCharacterEncoding("text/html; charset=utf-8");
+        	writer.println("<script>alert('Already existing ID'); location.href='login.do';</script>");
+        	writer.flush();
+        	return "/user/login";
+		}
+		else {
+			String hashedPw = BCrypt.hashpw(userVO.getUser_Pw(),BCrypt.gensalt());
+			
+			userVO.setUser_Pw(hashedPw);
+			userService.register(userVO);
+			redirectAttributes.addAttribute("msg","REGISTERED");
+		}
+		return "redirect:/login.do";		
 	}
 	
 }

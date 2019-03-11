@@ -93,6 +93,39 @@
                 <!-- /.box -->
             </div>
             <!-- /.col -->
+            <c:if test="${login.book_cnt!=0}">
+	            <div class="col-lg-12">
+					<div class="box box-primary">
+						<h3 class="box-title">대출중인 도서목록</h3>
+					</div>
+					<div class="box box-body">
+						<table class="table table-bordered">
+						<tbody>
+						<tr>
+							<th>책제목</th>
+							<th style="width: 50px">저자</th>
+							<th style="width: 80px">출판사</th>
+							<th style="width: 150px">반납일자</th>
+							<th style="width: 60px">반납</th>
+						</tr>
+						<c:forEach var="library" items="${books}">
+							<tr>
+								<td><a href="book_read?book_No=${books.book_No}" >${books.book_Name}</a></td>
+								<td>${books.book_Writer}</td>
+								<td>${books.book_Publisher}</td>
+								<td>
+								<fmt:formatDate value="${books.book_LimitDate}" pattern="yyyy-MM-dd a HH:mm"/>
+								</td>
+								<td><div class="pull-right">
+									<button type="submit" class="btn btn-primary returnBtn" ><i class="fa fa-book" ></i> 반납</button>
+								</div></td>
+							</tr>
+						</c:forEach>
+						</tbody>
+						</table>
+					</div>
+				</div>
+				</c:if>
             </section>
         <!-- /.content -->
     </div>
@@ -211,6 +244,12 @@
         var userImg = "${login.userImg}";
         if (userImg !== "/user/default-user.png") {
         }
+        
+		$(".returnBtn").on("click",function(){
+			formObj.attr("action","info_return");
+			formObj.attr("method","GET");
+			formObj.submit();
+		});
     });
 </script>
 
