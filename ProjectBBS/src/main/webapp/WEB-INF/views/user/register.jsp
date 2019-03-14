@@ -6,7 +6,7 @@
 <div class="register-box">
     <div class="register-logo">
         <a href="${path}/">
-            <b>My</b> BOARD
+            <b>Information</b> Library
         </a>
     </div>
 

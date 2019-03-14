@@ -10,8 +10,7 @@
         background-color: grey;
       }
  </style>
- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3d0HaRVsLDfLo2g7fX9zdVt3GbV1rSss&callback=initMap"></script>
-
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3d0HaRVsLDfLo2g7fX9zdVt3GbV1rSss" type="text/javascript"></script>
 <script>
 function initialize() {
  var LatLng = new google.maps.LatLng(37.496736, 127.030084);
@@ -56,7 +55,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
         </section>
         	<div style="width: 800px;height: 400px">
         	</div>
+        	<!-- 
 			<div id="googleMap" style="margin-left:20px;width:900px;height:400px;"></div>
+        	 -->
 
         <!-- Main content -->
         <section class="content container-fluid">

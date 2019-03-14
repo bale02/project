@@ -18,7 +18,7 @@ if (msg == "REGISTERED") {
 <div class="login-box">
     <div class="login-logo">
         <a href="${path}/">
-            <b>My</b> BOARD
+            <b>Information</b> Library
         </a>
     </div>
     <!-- /.login-logo -->
