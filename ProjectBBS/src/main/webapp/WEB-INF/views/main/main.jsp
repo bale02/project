@@ -55,9 +55,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
         </section>
         	<div style="width: 800px;height: 400px">
         	</div>
-        	<!-- 
+         
 			<div id="googleMap" style="margin-left:20px;width:900px;height:400px;"></div>
-        	 -->
+        	 
 
         <!-- Main content -->
         <section class="content container-fluid">
